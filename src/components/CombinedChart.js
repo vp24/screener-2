@@ -1,5 +1,6 @@
 import React from 'react';
-import { Chart } from 'react-chartjs-2';
+import { Chart } from 'chart.js/auto'
+
 
 const CombinedChart = ({ data }) => {
   // Find iseTableA data
@@ -68,7 +69,7 @@ const CombinedChart = ({ data }) => {
   return (
     <div>
       <h2>Income Statement Evolution (ISE) - Sales vs Net Income vs Net Margin</h2>
-      <Chart type='bar' data={chartData} options={chartOptions} />
+      <Chart type='Bar' data={chartData} options={chartOptions} />
     </div>
   );
 };
