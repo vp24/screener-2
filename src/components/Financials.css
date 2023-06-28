@@ -1,0 +1,26 @@
+.financials {
+  max-width: 1000px; /* Increase max-width as needed */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.financials-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Create a 3-column grid */
+  gap: 20px;
+}
+
+.financials-grid div {
+  background: #f9f9f9;
+  padding: 25spx; /* Add additional padding */
+  border-radius: 10px;
+  word-wrap: break-word; /* Add word wrap */
+}
+
+.mkt-cap {
+  text-align: center;
+  margin-top: 20px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+}

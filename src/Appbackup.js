@@ -7,9 +7,8 @@ import DataDisplay from './components/DataDisplay';
 import Pr10TextsDisplay from './components/Pr10TextsDisplay';
 import Financials from './components/Financials';
 import YahooDataComponent from './components/YahooDataComponent';
-//import BarChart from './components/BarChart';
-//import LineGraph from './components/LineGraph';
-import CombinedChart from './components/CombinedChart';
+import BarChart from './components/BarChart';
+import LineGraph from './components/LineGraph';
 import { Chart, BarElement, LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
 
 Chart.register(BarElement, LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
@@ -64,13 +63,12 @@ const App = () => {
       {scrapedLink && (
         <p>Selected Link: {scrapedLink}</p>
       )}
+      <YahooDataComponent yahooData={yahooData} />
       <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
       <Financials data={data} />
       <DataDisplay data={data} />
-      {/* <BarChart data={data} /> */}
-      {/* <LineGraph data={data} /> */}
-      <CombinedChart data={data} />
-      <YahooDataComponent yahooData={yahooData} />
+      <BarChart data={data} />
+      <LineGraph data={data} />
     </>
   )}
 </div>
