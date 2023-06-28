@@ -8,9 +8,7 @@ import Pr10TextsDisplay from './components/Pr10TextsDisplay';
 import Financials from './components/Financials';
 import YahooDataComponent from './components/YahooDataComponent';
 import CombinedChart from './components/CombinedChart';
-import { Chart, BarElement, LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
 
-Chart.register(BarElement, LineElement, PointElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
 
 const App = () => {
   const [data, setData] = useState([]);

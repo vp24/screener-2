@@ -72,7 +72,7 @@ const CombinedChart = ({ data }) => {
   return (
     <div>
       <h2>Income Statement Evolution (ISE) - Sales vs Net Income vs Net Margin</h2>
-      <Chart type='bar' data={chartData} options={chartOptions} />
+      <Bar data={chartData} options={chartOptions} />
     </div>
   );
 };
