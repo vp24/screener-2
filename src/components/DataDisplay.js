@@ -1,5 +1,5 @@
 import React from 'react';
-import '../DataDisplay.css'; // Update the import path
+import './DataDisplay.css'; // Update the import path
 import '../App.css';
 
 const DataDisplay = ({ data }) => {
