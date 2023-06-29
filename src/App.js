@@ -29,7 +29,7 @@
         setLoading(true);
         setError(null);
         const response = query
-          ? await axios.post('https://screener-api.onrender.com', { query })
+          ? await axios.post('https://screener-api.onrender.com/', { query })
           : await axios.get('https://screener-api.onrender.com/api/scrape');
         const scrapeResponse = await axios.get(`https://screener-api.onrender.com/api/scrape?query=${response.data.result || ''}`);
         setData(scrapeResponse.data);
