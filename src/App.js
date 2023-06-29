@@ -43,7 +43,7 @@ const App = () => {
 
   return (
     <div className="container">
-      <h1>Scraper</h1>
+      <h1>ScraperScreener</h1>
       <SearchForm onSearch={fetchData} />
       {loading ? (
         <Loading />

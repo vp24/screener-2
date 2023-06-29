@@ -48,20 +48,22 @@ const DataDisplay = ({ data }) => {
       
       return (
         <div key={tableID}>
-          <table className="data-table">
-            <caption>{tableID === 'valuationTable' ? 'Valuation' : (tableID === 'iseTableA' ? 'Income Statement Evolution (Annual data)' : 'Balance Sheet (Annual data)')}</caption>
-            <tbody>
-              {tableData.map((row, rowIndex) => (
-                <tr key={rowIndex}>
-                  {row.map((cell, cellIndex) => (
-                    <td key={cellIndex} className={cellIndex === 0 ? 'bold' : ''}>
-                      {cellIndex === 0 ? capitalize(convertToSuperscript(cell)) : cell}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="table-scroll">
+            <table className="data-table">
+              <caption>{tableID === 'valuationTable' ? 'Valuation' : (tableID === 'iseTableA' ? 'Income Statement Evolution (Annual data)' : 'Balance Sheet (Annual data)')}</caption>
+              <tbody>
+                {tableData.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {row.map((cell, cellIndex) => (
+                      <td key={cellIndex} className={cellIndex === 0 ? 'bold' : ''}>
+                        {cellIndex === 0 ? capitalize(convertToSuperscript(cell)) : cell}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       );
     })
