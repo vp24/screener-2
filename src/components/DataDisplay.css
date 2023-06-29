@@ -1,9 +1,4 @@
-/* YahooDataComponent.css */
-.label-bold {
-    font-weight: bold;
-  }
-
-  .table-scroll {
+.table-scroll {
     overflow-x: auto; /* Enable horizontal scroll */
   }
   
@@ -24,7 +19,7 @@
     background-color: #f9f9f9;
   }
   
-  .label-bold {
+  .bold {
     font-weight: bold;
   }
   
