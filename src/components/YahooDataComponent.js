@@ -3,8 +3,7 @@ import './YahooDataComponent.css';
 
 const YahooDataComponent = ({ yahooData }) => {
   const { epsTrend, growthEstimates } = yahooData;
-  
-  // Separate column headers and row data
+
   const epsTrendColumns = epsTrend.slice(0, 4);
   const epsTrendData = epsTrend.slice(4);
 
@@ -13,47 +12,51 @@ const YahooDataComponent = ({ yahooData }) => {
 
   return (
     <div>
-    <h2>Estimates and Revisions</h2>
-      
+      <h2>Estimates and Revisions</h2>
+
       <h3>EPS Trend</h3>
-      <table className="data-table">
-        <thead>
-          <tr>
-            <th></th>
-            {epsTrendColumns.map((column, index) => (
-              <th key={index}>{column}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {epsTrendRows.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              <td className='label-bold'>{row}</td>
-              {epsTrendColumns.map((column, columnIndex) => (
-                <td key={columnIndex}>{epsTrendData[rowIndex * epsTrendColumns.length + columnIndex]}</td>
+      <div className="table-scroll">
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th></th>
+              {epsTrendColumns.map((column, index) => (
+                <th key={index}>{column}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-      
+          </thead>
+          <tbody>
+            {epsTrendRows.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                <td className="label-bold">{row}</td>
+                {epsTrendColumns.map((column, columnIndex) => (
+                  <td key={columnIndex}>{epsTrendData[rowIndex * epsTrendColumns.length + columnIndex]}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <h3>Growth Estimates</h3>
-      <table className="data-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>% Estimates</th>
-          </tr>
-        </thead>
-        <tbody>
-          {growthEstimateRows.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              <td className='label-bold'>{row}</td>
-              <td>{growthEstimates[rowIndex]}</td>
+      <div className="table-scroll">
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>% Estimates</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {growthEstimateRows.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                <td className="label-bold">{row}</td>
+                <td>{growthEstimates[rowIndex]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

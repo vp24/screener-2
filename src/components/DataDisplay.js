@@ -1,15 +1,12 @@
 import React from 'react';
-import './DataDisplay.css'; // Update the import path
-import '../App.css';
+import './DataDisplay.css';
 
 const DataDisplay = ({ data }) => {
-  // Define excluded rows for each table
   const excludedRows = {
     valuationTable: [7, 11, 13],
     iseTableA: [2, 3, 5, 11, 13],
   };
 
-  // Convert numbers in labels to superscript
   const convertToSuperscript = (label) => {
     return label.replace(/(\S+)\s?(\d+)/g, (_, text, number) => {
       const superscriptMap = {
@@ -36,20 +33,18 @@ const DataDisplay = ({ data }) => {
   };
 
   return (
-    data.map(({ tableID, tableData }) => {
-      // Filter out excluded rows
-      if (excludedRows[tableID]) {
-        tableData = tableData.filter((_, rowIndex) => !excludedRows[tableID].includes(rowIndex));
-      }
+    <div>
+      {data.map(({ tableID, tableData }) => {
+        if (excludedRows[tableID]) {
+          tableData = tableData.filter((_, rowIndex) => !excludedRows[tableID].includes(rowIndex));
+        }
 
-      // Limit the number of rows for the Balance Sheet table
-      if (tableID === 'bsTable') {
-        tableData = tableData.slice(0, 3);
-      }
-      
-      return (
-        <div key={tableID}>
-          <div className="table-scroll">
+        if (tableID === 'bsTable') {
+          tableData = tableData.slice(0, 3);
+        }
+
+        return (
+          <div key={tableID} className="table-scroll">
             <table className="data-table">
               <caption>{tableID === 'valuationTable' ? 'Valuation' : (tableID === 'iseTableA' ? 'Income Statement Evolution (Annual data)' : 'Balance Sheet (Annual data)')}</caption>
               <tbody>
@@ -65,9 +60,9 @@ const DataDisplay = ({ data }) => {
               </tbody>
             </table>
           </div>
-        </div>
-      );
-    })
+        );
+      })}
+    </div>
   );
 };
 
