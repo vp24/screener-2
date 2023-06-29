@@ -29,14 +29,14 @@
         setLoading(true);
         setError(null);
         const response = query
-          ? await axios.post('http://localhost:3001/search', { query })
-          : await axios.get('http://localhost:3001/api/scrape');
-        const scrapeResponse = await axios.get(`http://localhost:3001/api/scrape?query=${response.data.result || ''}`);
+          ? await axios.post('https://screener-api.onrender.com', { query })
+          : await axios.get('https://screener-api.onrender.com/api/scrape');
+        const scrapeResponse = await axios.get(`https://screener-api.onrender.com/api/scrape?query=${response.data.result || ''}`);
         setData(scrapeResponse.data);
         setScrapedLink(response.data.result); // Set the selected link here
     
         // Fetch Yahoo data
-        const yahooResponse = await axios.get(`http://localhost:3001/api/yahoo?query=${query}`);
+        const yahooResponse = await axios.get(`https://screener-api.onrender.com/api/yahoo?query=${query}`);
         setYahooData(yahooResponse.data);
     
         setLoading(false);
