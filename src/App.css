@@ -1,3 +1,7 @@
+.table-scroll {
+  overflow-x: auto; /* Enable horizontal scroll */
+}
+
 .container {
   max-width: 800px;
   margin: 0 auto;

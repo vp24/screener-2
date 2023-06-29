@@ -16,7 +16,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [scrapedLink, setScrapedLink] = useState('');
 
-  const url = 'https://screener-api.onrender.com/'
+  const url = 'https://screener-api.onrender.com/';
 
   const fetchData = async (query = '') => {
     try {
@@ -28,11 +28,11 @@ const App = () => {
       const scrapeResponse = await axios.get(`https://screener-api.onrender.com/api/scrape?query=${response.data.result || ''}`);
       setData(scrapeResponse.data);
       setScrapedLink(response.data.result); // Set the selected link here
-  
+
       // Fetch Yahoo data
       const yahooResponse = await axios.get(`https://screener-api.onrender.com/api/yahoo?query=${query}`);
       setYahooData(yahooResponse.data);
-  
+
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -42,7 +42,7 @@ const App = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container table-scroll"> {/* Add table-scroll class to enable horizontal scrolling */}
       <h1>ScraperScreener</h1>
       <SearchForm onSearch={fetchData} />
       {loading ? (
