@@ -85,7 +85,9 @@ const Financials = ({ data, scrapedLink }) => {
     <div className="mkt-cap">
     <h3><strong>{mkCapLabel}: {mkCap}</strong></h3>
   </div>
-  <p className="center"><Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} /></p>
+  <div className="center">
+  <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
+</div>
 
     <div className="financials">
       <h2>Financials</h2>

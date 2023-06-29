@@ -1,20 +1,20 @@
 .financials {
-  max-width: 1000px; /* Increase max-width as needed */
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
 }
 
 .financials-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* Create a 3-column grid */
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 }
 
 .financials-grid div {
   background: #f9f9f9;
-  padding: 25spx; /* Add additional padding */
+  padding: 20px;
   border-radius: 10px;
-  word-wrap: break-word; /* Add word wrap */
+  word-wrap: break-word;
 }
 
 .mkt-cap {
@@ -25,4 +25,15 @@
 
 .center {
   text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  .financials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .financials-grid div {
+    padding: 15px;
+  }
 }

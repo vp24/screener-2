@@ -1,7 +1,5 @@
 import React from 'react';
 import '../App.css';
-import Pr10TextsDisplay from './Pr10TextsDisplay';
-
 
 const DataDisplay = ({ data }) => {
   // Define excluded rows for each table
