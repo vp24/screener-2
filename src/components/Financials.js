@@ -1,7 +1,11 @@
 import React from "react";
 import "./Financials.css";
+import StockName from "./StockName";
+import Pr10TextsDisplay from './Pr10TextsDisplay';
 
-const Financials = ({ data }) => {
+
+
+const Financials = ({ data, scrapedLink }) => {
   const findTable = (id) =>
     data.find((item) => item.tableID === id)?.tableData || [];
 
@@ -41,7 +45,6 @@ const Financials = ({ data }) => {
 
   const capitalize = (label) => {
     return label
-      .toLowerCase()
       .split(' ')
       .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
       .join(' ');
@@ -78,6 +81,12 @@ const Financials = ({ data }) => {
   const netCash2025 = bsTable[2]?.[8];
 
   return (
+    <div>
+    <div className="mkt-cap">
+    <h3><strong>{mkCapLabel}: {mkCap}</strong></h3>
+  </div>
+  <p className="center"><Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} /></p>
+
     <div className="financials">
       <h2>Financials</h2>
       <div className="financials-grid">
@@ -109,10 +118,7 @@ const Financials = ({ data }) => {
           <p><strong>{yieldLabel}</strong>: {yield2025}</p>
         </div>
       </div>
-      <div className="mkt-cap">
-        <h3>{mkCapLabel}</h3>
-        <p>{mkCap}</p>
-      </div>
+    </div>
     </div>
   );
 };

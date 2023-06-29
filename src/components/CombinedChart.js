@@ -42,32 +42,48 @@ const CombinedChart = ({ data }) => {
     ],
   };
 
-  // Prepare options for the chart
-  const chartOptions = {
-    responsive: true,
-    scales: {
-      y1: {
-        type: 'linear',
-        display: true,
-        position: 'left',
-        beginAtZero: true,
-      },
-      y2: {
-        type: 'linear',
-        display: true,
-        position: 'right',
-        beginAtZero: true,
-        ticks: {
-          callback: function(value, index, values) {
-            return value + '%';
-          },
+ // Prepare options for the chart
+ const chartOptions = {
+  responsive: true,
+  plugins: {
+    tooltip: {
+      mode: 'index',
+      intersect: false,
+      callbacks: {
+        label: function(tooltipItem) {
+          const dataset = tooltipItem.chart.data.datasets[tooltipItem.datasetIndex];
+          const currentValue = dataset.data[tooltipItem.parsed.x];
+          return dataset.label + ': ' + currentValue;
         },
-        grid: {
-          drawOnChartArea: false,
+        title: function(tooltipItem) {
+          return 'Year: ' + tooltipItem[0].chart.data.labels[tooltipItem[0].parsed.x];
         },
       },
     },
-  };
+  },
+  scales: {
+    y1: {
+      type: 'linear',
+      display: true,
+      position: 'left',
+      beginAtZero: true,
+    },
+    y2: {
+      type: 'linear',
+      display: true,
+      position: 'right',
+      beginAtZero: true,
+      ticks: {
+        callback: function(value, index, values) {
+          return value + '%';
+        },
+      },
+      grid: {
+        drawOnChartArea: false,
+      },
+    },
+  },
+};
 
   return (
     <div>

@@ -1,7 +1,15 @@
 import React from 'react';
 import '../App.css';
+import Pr10TextsDisplay from './Pr10TextsDisplay';
+
 
 const DataDisplay = ({ data }) => {
+  // Define excluded rows for each table
+  const excludedRows = {
+    valuationTable: [7, 11, 13],
+    iseTableA: [2, 3, 5, 11, 13],
+  };
+
   // Convert numbers in labels to superscript
   const convertToSuperscript = (label) => {
     return label.replace(/(\S+)\s?(\d+)/g, (_, text, number) => {
@@ -23,32 +31,42 @@ const DataDisplay = ({ data }) => {
 
   const capitalize = (label) => {
     return label
-      .toLowerCase()
       .split(' ')
       .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
       .join(' ');
   };
 
   return (
-    data.map(({ tableID, tableData }) => (
-      <div key={tableID}>
-        <p></p>
-        <table className="data-table">
-          <caption>{tableID === 'valuationTable' ? 'Valuation' : (tableID === 'iseTableA' ? 'Income Statement Evolution (Annual data)' : 'Balance Sheet (Annual data)')}</caption>
-          <tbody>
-            {tableData.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                {row.map((cell, cellIndex) => (
-                  <td key={cellIndex} className={cellIndex === 0 ? 'bold' : ''}>
-                    {cellIndex === 0 ? capitalize(convertToSuperscript(cell)) : cell}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    ))
+    data.map(({ tableID, tableData }) => {
+      // Filter out excluded rows
+      if (excludedRows[tableID]) {
+        tableData = tableData.filter((_, rowIndex) => !excludedRows[tableID].includes(rowIndex));
+      }
+
+      // Limit the number of rows for the Balance Sheet table
+      if (tableID === 'bsTable') {
+        tableData = tableData.slice(0, 3);
+      }
+      
+      return (
+        <div key={tableID}>
+          <table className="data-table">
+            <caption>{tableID === 'valuationTable' ? 'Valuation' : (tableID === 'iseTableA' ? 'Income Statement Evolution (Annual data)' : 'Balance Sheet (Annual data)')}</caption>
+            <tbody>
+              {tableData.map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                  {row.map((cell, cellIndex) => (
+                    <td key={cellIndex} className={cellIndex === 0 ? 'bold' : ''}>
+                      {cellIndex === 0 ? capitalize(convertToSuperscript(cell)) : cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    })
   );
 };
 

@@ -18,9 +18,11 @@
 }
 
 .mkt-cap {
+  margin: auto;
   text-align: center;
-  margin-top: 20px;
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 5px;
+}
+
+.center {
+  text-align: center;
 }
