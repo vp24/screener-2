@@ -8,6 +8,8 @@ import Pr10TextsDisplay from './components/Pr10TextsDisplay';
 import Financials from './components/Financials';
 import YahooDataComponent from './components/YahooDataComponent';
 import CombinedChart from './components/CombinedChart';
+import StockName from './components/StockName';
+
 
 
 const App = () => {
@@ -18,9 +20,9 @@ const App = () => {
   const [scrapedLink, setScrapedLink] = useState('');
 
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const fetchData = async (query = '') => {
     try {
@@ -44,32 +46,35 @@ const App = () => {
       setLoading(false);
     }
   };
+
+  
   
   
 
   return (
-<div className="container">
-  <h1>Scraper</h1>
-  <SearchForm onSearch={fetchData} />
-  {loading ? (
-    <Loading />
-  ) : error ? (
-    <p className="error">{error}</p>
-  ) : (
-    <>
-      {scrapedLink && (
-        <p>Selected Link: {scrapedLink}</p>
+    <div className="container">
+      <h1>Scraper</h1>
+      <SearchForm onSearch={fetchData} />
+      {loading ? (
+        <Loading />
+      ) : error ? (
+        <p className="error">{error}</p>
+      ) : (
+        <>
+          {scrapedLink && (
+            <>
+              <p>Selected Link: {scrapedLink}</p>
+              <StockName url={scrapedLink} />
+            </>
+          )}
+          <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
+          <Financials data={data} />
+          <DataDisplay data={data} />
+          <CombinedChart data={data} />
+          <YahooDataComponent yahooData={yahooData} />
+        </>
       )}
-      <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
-      <Financials data={data} />
-      <DataDisplay data={data} />
-      <CombinedChart data={data} />
-      <YahooDataComponent yahooData={yahooData} />
-    </>
-  )}
-</div>
-
-
+    </div>
   );
 };
 
