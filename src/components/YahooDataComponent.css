@@ -4,7 +4,9 @@
   }
   .table-scroll {
     overflow-x: auto;
-  }
+    padding-left: 10px;  /* Adjust the size as needed */
+}
+
   
   .data-table {
     width: auto;
