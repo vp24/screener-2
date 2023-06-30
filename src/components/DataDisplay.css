@@ -1,10 +1,10 @@
 .table-scroll {
-    overflow-x: scroll; /* Use "scroll" instead of "auto" */
+    overflow-x: auto;
   }
   
   .data-table {
-    width: max-content; /* Adjust the width as needed */
-    min-width: 100%; /* Add a min-width of 100% to fill the available space */
+    width: auto;
+    min-width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
   }
