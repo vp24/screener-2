@@ -1,9 +1,7 @@
 .data-table {
     width: auto;
-    min-width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    table-layout: fixed; /* This ensures the table width is evenly distributed */
 }
 
 .data-table th,
@@ -11,10 +9,11 @@
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
+    word-wrap: break-word;
 }
 
 .data-table th {
-    background-color: #f9f9f9;
+    background-color: #ce6060;
 }
 
 .bold {
@@ -27,16 +26,15 @@
 
 @media (max-width: 600px) {
     .data-table {
-        font-size: 9px; /* Set font size for the whole table */
-        word-wrap: break-word;
+        max-width: 90%;
+        font-size: 8px; /* Set font size for the whole table */
     }
     .data-table th,
     .data-table td {
-        padding: 5px; /* Reduce padding for mobile view */
+        padding: 1px; /* Reduce padding for mobile view */
     }
     .small-font {
         font-size: 8px; /* Reduce font size for small-font class in mobile view */
-        word-wrap: break-word;
     }
     .table-scroll {
         overflow-x: scroll;

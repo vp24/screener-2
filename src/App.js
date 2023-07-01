@@ -9,6 +9,7 @@ import YahooDataComponent from './components/YahooDataComponent';
 import CombinedChart from './components/CombinedChart';
 import StockName from './components/StockName';
 
+
 const App = () => {
   const [data, setData] = useState(null);
   const [yahooData, setYahooData] = useState(null);
