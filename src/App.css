@@ -8,7 +8,9 @@
   justify-content: center;
   font-family: 'Roboto', sans-serif;
   color: #444;
+  overflow-x: auto;  /* Add this line */
 }
+
 
 h1 {
   font-size: 2.5rem;

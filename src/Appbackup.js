@@ -1,28 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import SearchForm from './components/SearchForm';
 import Loading from './components/Loading';
 import DataDisplay from './components/DataDisplay';
-import Pr10TextsDisplay from './components/Pr10TextsDisplay';
 import Financials from './components/Financials';
 import YahooDataComponent from './components/YahooDataComponent';
 import CombinedChart from './components/CombinedChart';
 import StockName from './components/StockName';
 
-
-
 const App = () => {
-  const [data, setData] = useState([]);
-  const [yahooData, setYahooData] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
+  const [yahooData, setYahooData] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [scrapedLink, setScrapedLink] = useState('');
 
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  const url = 'https://screener-api.onrender.com/';
 
   const fetchData = async (query = '') => {
     try {
@@ -34,11 +28,11 @@ const App = () => {
       const scrapeResponse = await axios.get(`https://screener-api.onrender.com/api/scrape?query=${response.data.result || ''}`);
       setData(scrapeResponse.data);
       setScrapedLink(response.data.result); // Set the selected link here
-  
+
       // Fetch Yahoo data
       const yahooResponse = await axios.get(`https://screener-api.onrender.com/api/yahoo?query=${query}`);
       setYahooData(yahooResponse.data);
-  
+
       setLoading(false);
     } catch (error) {
       console.error(error);
@@ -47,13 +41,9 @@ const App = () => {
     }
   };
 
-  
-  
-  
-
   return (
-    <div className="container">
-      <h1>Scraper</h1>
+    <div className="container table-scroll"> {/* Add table-scroll class to enable horizontal scrolling */}
+      <h1>ScraperScreener</h1>
       <SearchForm onSearch={fetchData} />
       {loading ? (
         <Loading />
@@ -67,11 +57,10 @@ const App = () => {
               <StockName url={scrapedLink} />
             </>
           )}
-          {/* <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} /> */}
-          <Financials data={data} scrapedLink={scrapedLink} />
-          <DataDisplay data={data} />
-          <CombinedChart data={data} />
-          <YahooDataComponent yahooData={yahooData} />
+          {data && <Financials data={data} scrapedLink={scrapedLink} />}
+          {data && <DataDisplay data={data} />}
+          {data && <CombinedChart data={data} />}
+          {yahooData && <YahooDataComponent yahooData={yahooData} />}
         </>
       )}
     </div>
