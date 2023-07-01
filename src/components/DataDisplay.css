@@ -24,6 +24,10 @@
     overflow-x: auto;
 }
 
+.scrolling {
+    overflow-x: auto;
+}
+
 @media (max-width: 600px) {
     .data-table {
         max-width: 90%;
@@ -37,6 +41,6 @@
         font-size: 8px; /* Reduce font size for small-font class in mobile view */
     }
     .table-scroll {
-        overflow-x: scroll;
+        overflow-x: auto;
     }
 }
