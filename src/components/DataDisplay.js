@@ -50,11 +50,14 @@ const DataDisplay = ({ data }) => {
               <tbody>
                 {tableData.map((row, rowIndex) => (
                   <tr key={rowIndex}>
-                    {row.map((cell, cellIndex) => (
-                      <td key={cellIndex} className={cellIndex === 0 ? 'bold' : ''}>
-                        {cellIndex === 0 ? capitalize(convertToSuperscript(cell)) : cell}
-                      </td>
-                    ))}
+                    {row.map((cell, cellIndex) => {
+                      let displayCell = cell.includes("Fiscal Period") ? "Year" : cell;
+                      return (
+                        <td key={cellIndex} className={cellIndex === 0 ? 'bold small-font' : 'small-font'}>
+                          {cellIndex === 0 ? capitalize(convertToSuperscript(displayCell)) : displayCell}
+                        </td>
+                      )
+                    })}
                   </tr>
                 ))}
               </tbody>

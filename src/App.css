@@ -1,7 +1,7 @@
 .container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,16 +79,8 @@ button:hover {
     width: 100%;
   }
 }
-@media screen and (max-width: 600px) {
-  .data-table th, .data-table td {
-    padding: 5px;
-    font-size: 14px;
-  }
-}
 
-.data-table {
-  table-layout: fixed;
-}
-.data-table th, .data-table td {
-  word-break: break-word;
+.table-scroll {
+  overflow-x: auto;
+  width: 100%;
 }

@@ -3,29 +3,42 @@
     min-width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    table-layout: fixed;  /* Add this line */
+    table-layout: fixed; /* This ensures the table width is evenly distributed */
 }
 
-  
-  .data-table th,
-  .data-table td {
+.data-table th,
+.data-table td {
     border: 1px solid #ddd;
     padding: 10px;
-    text-align: left;
-  }
-  
-  .data-table th {
+    text-align: center;
+}
+
+.data-table th {
     background-color: #f9f9f9;
-  }
-  
-  .bold {
+}
+
+.bold {
     font-weight: bold;
-  }
-  
-  .data-table th, .data-table td {
-    word-break: break-word;
 }
 
 .container {
     overflow-x: auto;
+}
+
+@media (max-width: 600px) {
+    .data-table {
+        font-size: 9px; /* Set font size for the whole table */
+        word-wrap: break-word;
+    }
+    .data-table th,
+    .data-table td {
+        padding: 5px; /* Reduce padding for mobile view */
+    }
+    .small-font {
+        font-size: 8px; /* Reduce font size for small-font class in mobile view */
+        word-wrap: break-word;
+    }
+    .table-scroll {
+        overflow-x: scroll;
+    }
 }

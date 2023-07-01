@@ -34,6 +34,11 @@
   }
 
   .financials-grid div {
-    padding: 15px;
+    padding: 12px;
   }
+}
+@media (max-width: 600px) {
+.small-font {
+  font-size: 9px;
+}
 }
