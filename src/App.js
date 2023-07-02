@@ -8,7 +8,7 @@ import Financials from './components/Financials';
 import YahooDataComponent from './components/YahooDataComponent';
 import CombinedChart from './components/CombinedChart';
 import StockName from './components/StockName';
-
+import { Box } from '@mui/material';
 
 const App = () => {
   const [data, setData] = useState(null);
@@ -43,7 +43,7 @@ const App = () => {
   };
 
   return (
-    <div className="container table-scroll"> {/* Add table-scroll class to enable horizontal scrolling */}
+    <Box className="container" style={{ overflowX: 'auto' }}>
       <h1>ScraperScreener</h1>
       <SearchForm onSearch={fetchData} />
       {loading ? (
@@ -64,7 +64,7 @@ const App = () => {
           {yahooData && <YahooDataComponent yahooData={yahooData} />}
         </>
       )}
-    </div>
+    </Box>
   );
 };
 

@@ -45,7 +45,7 @@ const DataDisplay = ({ data }) => {
   };
 
   return (
-    <div>
+    <div className="data-table-container">
       {data.map(({ tableID, tableData }) => {
         if (excludedRows[tableID]) {
           tableData = tableData.filter((_, rowIndex) => !excludedRows[tableID].includes(rowIndex));

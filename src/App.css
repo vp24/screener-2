@@ -2,19 +2,20 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-family: 'Roboto', sans-serif;
   color: #444;
-  overflow-x: auto;  /* Add this line */
+  overflow-x: auto; /* Enable horizontal scrolling if necessary */
+}
+
+.container > * {
+  width: 100%;
 }
 
 h1 {
   font-size: 2.5rem;
   color: #333;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 form {
@@ -51,6 +52,7 @@ button:hover {
 .data-table-container {
   margin-bottom: 30px;
   text-align: justify;
+  overflow-x: auto; /* Enable horizontal scrolling for tables */
 }
 
 .loading {
@@ -78,9 +80,4 @@ button:hover {
   button {
     width: 100%;
   }
-}
-
-.table-scroll {
-  overflow-x: auto;
-  width: 100%;
 }
