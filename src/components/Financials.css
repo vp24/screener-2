@@ -15,6 +15,7 @@
   padding: 20px;
   border-radius: 10px;
   word-wrap: break-word;
+  text-align: center; /* To center the content in the div */
 }
 
 .mkt-cap {
@@ -30,11 +31,12 @@
 /* Responsive Styles */
 @media (max-width: 600px) {
   .financials-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px; /* Reduce gap between columns */
   }
 
   .financials-grid div {
-    padding: 12px;
+    padding: 10px; /* Reduce padding for mobile */
+    font-size: 0.8em; /* Decrease font size for mobile */
   }
 }
-
