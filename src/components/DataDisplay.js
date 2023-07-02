@@ -1,5 +1,17 @@
 import React from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableRow, Typography, Box, Paper } from '@mui/material';
+import { styled } from '@mui/system';
 import './DataDisplay.css';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    padding: '1px',
+  },
+  borderRight: '1px solid rgba(224, 224, 224, 1)',
+  '&:last-child': {
+    borderRight: 'none',
+  },
+}));
 
 const DataDisplay = ({ data }) => {
   const excludedRows = {
@@ -32,8 +44,6 @@ const DataDisplay = ({ data }) => {
       .join(' ');
   };
 
-  const isMobile = window.innerWidth <= 768;
-
   return (
     <div>
       {data.map(({ tableID, tableData }) => {
@@ -45,29 +55,32 @@ const DataDisplay = ({ data }) => {
           tableData = tableData.slice(0, 3);
         }
 
+        const tableTitle = tableID === 'valuationTable' ? 'Valuation' : (tableID === 'iseTableA' ? 'Income Statement Evolution' : 'Balance Sheet');
+
         return (
-          <div key={tableID} className="table-scroll">
-            <table className="data-table">
-              <caption>{tableID === 'valuationTable' ? 'Valuation' : (tableID === 'iseTableA' ? 'Income Statement Evolution (Annual data)' : 'Balance Sheet (Annual data)')}</caption>
-              <tbody>
+          <TableContainer component={Paper} key={tableID}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 2 }}>
+              <Typography variant="subtitle1" gutterBottom component="div">
+                {tableTitle}
+              </Typography>
+            </Box>
+            <Table>
+              <TableBody>
                 {tableData.map((row, rowIndex) => (
-                  <tr key={rowIndex}>
+                  <TableRow key={rowIndex}>
                     {row.map((cell, cellIndex) => {
-                      if (isMobile && cellIndex === 1) {
-                        return null;
-                      }
                       let displayCell = cell.includes("Fiscal Period") ? "Year" : cell;
                       return (
-                        <td key={cellIndex} className={cellIndex === 0 ? 'bold small-font' : 'small-font'}>
+                        <StyledTableCell key={cellIndex} className={cellIndex === 0 ? 'bold small-font' : 'small-font'}>
                           {cellIndex === 0 ? capitalize(convertToSuperscript(displayCell)) : displayCell}
-                        </td>
+                        </StyledTableCell>
                       )
                     })}
-                  </tr>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </TableBody>
+            </Table>
+          </TableContainer>
         );
       })}
     </div>

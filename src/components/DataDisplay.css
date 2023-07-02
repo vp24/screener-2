@@ -4,6 +4,15 @@
     margin-bottom: 20px;
 }
 
+.custom-table-cell {
+    border-right: 1px solid rgba(224, 224, 224, 1);
+  }
+  
+  .custom-table-cell:last-child {
+    border-right: none;
+  }
+  
+
 .data-table th,
 .data-table td {
     border: 1px solid #ddd;
@@ -13,7 +22,7 @@
 }
 
 .data-table th {
-    background-color: #ce6060;
+    background-color: #dadada;
 }
 
 .bold {
@@ -30,17 +39,14 @@
 
 @media (max-width: 600px) {
     .data-table {
-        max-width: 90%;
-        font-size: 8px; /* Set font size for the whole table */
-    }
-    .data-table th,
-    .data-table td {
-        padding: 1px; /* Reduce padding for mobile view */
+      max-width: 90%;
+      font-size: 9px;
     }
     .small-font {
-        font-size: 8px; /* Reduce font size for small-font class in mobile view */
+      font-size: 9px;
     }
     .table-scroll {
-        overflow-x: auto;
+      overflow-x: auto;
     }
-}
+  }
+  
