@@ -13,14 +13,18 @@ import { styled } from "@mui/system";
 import "./DataDisplay.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [theme.breakpoints.down("sm")]: {
-    padding: "1px",
+  [theme.breakpoints.down('sm')]: {
+    padding: '10px', /* Adjust padding for mobile */
+    textAlign: 'center', /* Center the text for mobile */
   },
-  borderRight: "1px solid rgba(224, 224, 224, 1)",
-  "&:last-child": {
-    borderRight: "none",
+  padding: '20px', /* Adjust padding for larger screens */
+  textAlign: 'center', /* Center the text for larger screens */
+  borderRight: '1px solid rgba(224, 224, 224, 1)',
+  '&:last-child': {
+    borderRight: 'none',
   },
 }));
+
 
 const DataDisplay = ({ data }) => {
   const excludedRows = {

@@ -35,4 +35,8 @@
     .table-scroll {
         max-width: 100%;
     }
+    .custom-table-cell {
+        text-align: center; /* Center the text for mobile */
+        padding: 5px; /* Add some padding for mobile */
+    }
 }
