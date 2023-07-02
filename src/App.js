@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <Box className="container" style={{ overflowX: 'auto' }}>
-      <h1>ScraperScreener</h1>
+      <h1>MarketSleeper</h1>
       <SearchForm onSearch={fetchData} />
       {loading ? (
         <Loading />
