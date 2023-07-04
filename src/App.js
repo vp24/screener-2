@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <Box className="container" style={{ overflowX: 'auto' }}>
-      <h1>MarketSleeper</h1>
+      <h1>InfoWolf</h1>
       <SearchForm onSearch={fetchData} />
       {loading ? (
         <Loading />
@@ -53,10 +53,9 @@ const App = () => {
       ) : (
         <>
           {scrapedLink && (
-            <>
-              <p>Selected Link: {scrapedLink}</p>
+            <Box className="stock-name-container">
               <StockName url={scrapedLink} />
-            </>
+            </Box>
           )}
           {data && <Financials data={data} scrapedLink={scrapedLink} />}
           {data && <DataDisplay data={data} />}
@@ -64,6 +63,8 @@ const App = () => {
           {yahooData && <YahooDataComponent yahooData={yahooData} />}
         </>
       )}
+      <p className="small-text">
+      This site is for educational use only. Commercial use is not allowed.</p>
     </Box>
   );
 };

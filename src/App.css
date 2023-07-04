@@ -81,3 +81,13 @@ button:hover {
     width: 100%;
   }
 }
+
+.small-text {
+  font-size: 90%;
+  text-align: center;
+}
+
+.stock-name-container {
+  display: flex;
+  justify-content: center;
+}
