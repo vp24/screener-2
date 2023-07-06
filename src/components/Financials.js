@@ -3,8 +3,6 @@ import "./Financials.css";
 import StockName from "./StockName";
 import Pr10TextsDisplay from './Pr10TextsDisplay';
 
-
-
 const Financials = ({ data, scrapedLink }) => {
   const findTable = (id) =>
     data.find((item) => item.tableID === id)?.tableData || [];
@@ -12,6 +10,9 @@ const Financials = ({ data, scrapedLink }) => {
   const valuationTable = findTable("valuationTable");
   const iseTableA = findTable("iseTableA");
   const bsTable = findTable("bsTable");
+
+  // This function gets the year from the table's header
+  const getYearFromTable = (table, index) => table[0]?.[index];
 
   let mkCapLabel = valuationTable[1]?.[0];
   if (mkCapLabel === "Capitalization") {
@@ -50,6 +51,7 @@ const Financials = ({ data, scrapedLink }) => {
       .join(' ');
   };
 
+  // applying capitalize and convertToSuperscript to labels
   mkCapLabel = capitalize(convertToSuperscript(mkCapLabel));
   peRatioLabel = capitalize(convertToSuperscript(peRatioLabel));
   yieldLabel = capitalize(convertToSuperscript(yieldLabel));
@@ -58,69 +60,33 @@ const Financials = ({ data, scrapedLink }) => {
   netDebtLabel = capitalize(convertToSuperscript(netDebtLabel));
   netCashLabel = capitalize(convertToSuperscript(netCashLabel));
 
-  const mkCap = valuationTable[1]?.[6];
-  const peRatio2023 = valuationTable[3]?.[6];
-  const yield2023 = valuationTable[4]?.[6];
-  const netSales2023 = iseTableA[1]?.[6];
-  const netIncome2023 = iseTableA[6]?.[6];
-  const netDebt2023 = bsTable[1]?.[6];
-  const netCash2023 = bsTable[2]?.[6];
-
-  const peRatio2024 = valuationTable[3]?.[7];
-  const yield2024 = valuationTable[4]?.[7];
-  const netSales2024 = iseTableA[1]?.[7];
-  const netIncome2024 = iseTableA[6]?.[7];
-  const netDebt2024 = bsTable[1]?.[7];
-  const netCash2024 = bsTable[2]?.[7];
-
-  const peRatio2025 = valuationTable[3]?.[8];
-  const yield2025 = valuationTable[4]?.[8];
-  const netSales2025 = iseTableA[1]?.[8];
-  const netIncome2025 = iseTableA[6]?.[8];
-  const netDebt2025 = bsTable[1]?.[8];
-  const netCash2025 = bsTable[2]?.[8];
+  // Creating an array of years by getting the header of the 6th, 7th, and 8th columns of the valuationTable
+  const years = [6, 7, 8].map(i => getYearFromTable(valuationTable, i));
 
   return (
     <div>
-    <div className="mkt-cap">
-    <h3><strong>{mkCapLabel}: {mkCap}</strong></h3>
-  </div>
-  <div className="center">
-  <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
-</div>
-
-    <div className="financials">
-      <h2>Financials</h2>
-      <div className="financials-grid">
-        <div>
-          <h3>2023</h3>
-          <p><strong>{netSalesLabel}</strong>: {netSales2023}</p>
-          <p><strong>{netIncomeLabel}</strong>: {netIncome2023}</p>
-          <p><strong>{netCashLabel}</strong>: {netCash2023}</p>
-          <p><strong>{netDebtLabel}</strong>: {netDebt2023}</p>
-          <p><strong>{peRatioLabel}</strong>: {peRatio2023}</p>
-          <p><strong>{yieldLabel}</strong>: {yield2023}</p>
-        </div>
-        <div>
-          <h3>2024</h3>
-          <p><strong>{netSalesLabel}</strong>: {netSales2024}</p>
-          <p><strong>{netIncomeLabel}</strong>: {netIncome2024}</p>
-          <p><strong>{netCashLabel}</strong>: {netCash2024}</p>
-          <p><strong>{netDebtLabel}</strong>: {netDebt2024}</p>
-          <p><strong>{peRatioLabel}</strong>: {peRatio2024}</p>
-          <p><strong>{yieldLabel}</strong>: {yield2024}</p>
-        </div>
-        <div>
-          <h3>2025</h3>
-          <p><strong>{netSalesLabel}</strong>: {netSales2025}</p>
-          <p><strong>{netIncomeLabel}</strong>: {netIncome2025}</p>
-          <p><strong>{netCashLabel}</strong>: {netCash2025}</p>
-          <p><strong>{netDebtLabel}</strong>: {netDebt2025}</p>
-          <p><strong>{peRatioLabel}</strong>: {peRatio2025}</p>
-          <p><strong>{yieldLabel}</strong>: {yield2025}</p>
+      <div className="mkt-cap">
+        <h3><strong>{mkCapLabel}: {valuationTable[1]?.[6]}</strong></h3>
+      </div>
+      <div className="center">
+        <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
+      </div>
+      <div className="financials">
+        <h2>Financials</h2>
+        <div className="financials-grid">
+          {years.map((year, i) => (
+            <div key={i}>
+              <h3>{year}</h3>
+              <p><strong>{netSalesLabel}</strong>: {iseTableA[1]?.[i+6]}</p>
+              <p><strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[i+6]}</p>
+              <p><strong>{netCashLabel}</strong>: {bsTable[2]?.[i+6]}</p>
+              <p><strong>{netDebtLabel}</strong>: {bsTable[1]?.[i+6]}</p>
+              <p><strong>{peRatioLabel}</strong>: {valuationTable[3]?.[i+6]}</p>
+              <p><strong>{yieldLabel}</strong>: {valuationTable[4]?.[i+6]}</p>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
     </div>
   );
 };
