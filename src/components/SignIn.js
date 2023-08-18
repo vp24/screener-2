@@ -1,19 +1,22 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-function SignIn() {
+function SignIn(onSignIn) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://screener-api.onrender.com/signin', {
-        username,
-        password,
-      });
-      
-      console.log(response.data);
+        const response = await axios.post('https://screener-2.onrender.com/signin', {
+            username,
+            password,
+          });
+          console.log(response.data);
+          if (response.data && response.data.token) {
+            onSignIn(username);
+          }
+          
     } catch (error) {
         console.error("Error signing in", error.response?.data || error.message);
     }
