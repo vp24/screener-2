@@ -12,6 +12,7 @@ function SignUp() {
         username,
         password,
       });
+      console.log(response.data); // This will show the entire data payload from the response
       console.log(`User ${username} signed up with message: ${response.data.message}`); // Frontend confirmation
     } catch (error) {
         console.error("Error signing up", error.response?.data || error.message);
