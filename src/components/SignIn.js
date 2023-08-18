@@ -8,7 +8,7 @@ function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://screener-2.onrender.com/signin', {
+      const response = await axios.post('https://screener-api.onrender.com/signin', {
         username,
         password,
       });
