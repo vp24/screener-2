@@ -8,7 +8,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/signup', {
+      const response = await axios.post('https://screener-2.onrender.com/signup', {
         username,
         password,
       });
