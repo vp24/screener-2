@@ -14,7 +14,7 @@ function SignUp() {
       });
       console.log(`User ${username} signed up with message: ${response.data.message}`); // Frontend confirmation
     } catch (error) {
-      console.error("Error signing up", error.response.data);
+        console.error("Error signing up", error.response?.data || error.message);
     }
   };
 

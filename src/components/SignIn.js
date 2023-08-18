@@ -14,7 +14,7 @@ function SignIn() {
       });
       console.log(response.data);
     } catch (error) {
-      console.error("Error signing in", error.response.data);
+        console.error("Error signing in", error.response?.data || error.message);
     }
   };
 
