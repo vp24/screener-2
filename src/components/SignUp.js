@@ -12,7 +12,7 @@ function SignUp() {
         username,
         password,
       });
-      console.log(response.data);
+      console.log(`User ${username} signed up with message: ${response.data.message}`); // Frontend confirmation
     } catch (error) {
       console.error("Error signing up", error.response.data);
     }
