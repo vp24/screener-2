@@ -8,7 +8,7 @@ import Financials from './components/Financials';
 import YahooDataComponent from './components/YahooDataComponent';
 import CombinedChart from './components/CombinedChart';
 import StockName from './components/StockName';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import { Box } from '@mui/material';
@@ -65,29 +65,33 @@ const App = () => {
 
         <Routes>
           <Route path="/" element={
-            <>
-              <SearchForm onSearch={fetchData} />
-              {loading ? (
-                <Loading />
-              ) : error ? (
-                <p className="error">{error}</p>
-              ) : (
-                <>
-                  {scrapedLink && (
-                    <Box className="stock-name-container">
-                      <StockName url={scrapedLink} />
-                    </Box>
-                  )}
-                  {data && <Financials data={data} scrapedLink={scrapedLink} />}
-                  {data && <DataDisplay data={data} />}
-                  {data && <CombinedChart data={data} />}
-                  {yahooData && <YahooDataComponent yahooData={yahooData} />}
-                </>
-              )}
-              <p className="small-text">
-                This site is for educational use only. Commercial use is not allowed.
-              </p>
-            </>
+            isAuthenticated ? (
+              <>
+                <SearchForm onSearch={fetchData} />
+                {loading ? (
+                  <Loading />
+                ) : error ? (
+                  <p className="error">{error}</p>
+                ) : (
+                  <>
+                    {scrapedLink && (
+                      <Box className="stock-name-container">
+                        <StockName url={scrapedLink} />
+                      </Box>
+                    )}
+                    {data && <Financials data={data} scrapedLink={scrapedLink} />}
+                    {data && <DataDisplay data={data} />}
+                    {data && <CombinedChart data={data} />}
+                    {yahooData && <YahooDataComponent yahooData={yahooData} />}
+                  </>
+                )}
+                <p className="small-text">
+                  This site is for educational use only. Commercial use is not allowed.
+                </p>
+              </>
+            ) : (
+              <Navigate to="/signin" replace />
+            )
           } />
           <Route path="/signin" element={<SignIn onSignIn={(user) => {
             setIsAuthenticated(true);
