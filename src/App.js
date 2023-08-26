@@ -8,7 +8,7 @@ import Financials from './components/Financials';
 import YahooDataComponent from './components/YahooDataComponent';
 import CombinedChart from './components/CombinedChart';
 import StockName from './components/StockName';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import { Box } from '@mui/material';
@@ -21,6 +21,7 @@ const App = () => {
   const [scrapedLink, setScrapedLink] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
+  const navigate = useNavigate();
 
   const fetchData = async (query = '') => {
     try {
@@ -92,6 +93,7 @@ const App = () => {
           <Route path="/signin" element={<SignIn onSignIn={(user) => {
             setIsAuthenticated(true);
             setUsername(user);
+            navigate('/');  // redirect to the main page
           }} isAuthenticated={isAuthenticated} />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
