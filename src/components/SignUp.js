@@ -28,4 +28,13 @@ function SignUp() {
   return (
     <div className="signup-container container">
       <h2>Sign Up</h2>
-      <form className="signup-form" onSubmit={handleSubmit}> {/* Added onSubmit event here
+      <form className="signup-form" onSubmit={handleSubmit}> {/* Added onSubmit event here */}
+        <input className="signup-input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
+        <input className="signup-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
+        <button type="submit" className="signup-btn">Sign Up</button>
+      </form>
+    </div>
+  );
+}
+
+export default SignUp;
