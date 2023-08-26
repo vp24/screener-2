@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();  // Added for navigation
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -12,23 +14,18 @@ function SignUp() {
         username,
         password,
       });
-      console.log(response.data); // This will show the entire data payload from the response
-      console.log(`User ${username} signed up with message: ${response.data.message}`); // Frontend confirmation
+      if (response.data && response.data.message) {
+        console.log(`User ${username} signed up with message: ${response.data.message}`);
+        alert('Successfully signed up! Redirecting to Sign In page...');  // Feedback for user
+        navigate('/signin');  // Redirect to Sign In page
+      }
     } catch (error) {
         console.error("Error signing up", error);
+        alert('Sign up failed. Please try again.');  // Feedback for user
     }
   };
 
   return (
-    <div>
-      <h2>SignUp</h2>
-      <form onSubmit={handleSubmit}>
-        <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
-        <button type="submit">SignUp</button>
-      </form>
-    </div>
-  );
-}
-
-export default SignUp;
+    <div className="signup-container container">
+      <h2>Sign Up</h2>
+      <form className="signup-form" onSubmit={handleSubmit}> {/* Added onSubmit event here
