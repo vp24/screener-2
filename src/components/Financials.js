@@ -11,10 +11,8 @@ const Financials = ({ data, scrapedLink }) => {
   const iseTableA = findTable("iseTableA");
   const bsTable = findTable("bsTable");
 
+  // This function gets the year from the table's header
   const getYearFromTable = (table, index) => table[0]?.[index];
-
-  const lastYearIndex = valuationTable[0].length - 1;
-  const years = [lastYearIndex - 2, lastYearIndex - 1, lastYearIndex].map(i => getYearFromTable(valuationTable, i));
 
   let mkCapLabel = valuationTable[1]?.[0];
   if (mkCapLabel === "Capitalization") {
@@ -27,6 +25,7 @@ const Financials = ({ data, scrapedLink }) => {
   let netDebtLabel = bsTable[1]?.[0];
   let netCashLabel = bsTable[2]?.[0];
 
+  // Convert numbers in labels to superscript
   const convertToSuperscript = (label) => {
     return label.replace(/([a-zA-Z]+)\s?(\d+)/g, (_, text, number) => {
       const superscriptMap = {
@@ -52,6 +51,7 @@ const Financials = ({ data, scrapedLink }) => {
       .join(' ');
   };
 
+  // applying capitalize and convertToSuperscript to labels
   mkCapLabel = capitalize(convertToSuperscript(mkCapLabel));
   peRatioLabel = capitalize(convertToSuperscript(peRatioLabel));
   yieldLabel = capitalize(convertToSuperscript(yieldLabel));
@@ -59,6 +59,9 @@ const Financials = ({ data, scrapedLink }) => {
   netIncomeLabel = capitalize(convertToSuperscript(netIncomeLabel));
   netDebtLabel = capitalize(convertToSuperscript(netDebtLabel));
   netCashLabel = capitalize(convertToSuperscript(netCashLabel));
+
+  // Getting the years from the last 3 columns
+  const years = valuationTable[0].slice(-3);
 
   return (
     <div>
@@ -74,12 +77,13 @@ const Financials = ({ data, scrapedLink }) => {
           {years.map((year, i) => (
             <div key={i}>
               <h3>{year}</h3>
-              <p><strong>{netSalesLabel}</strong>: {iseTableA[1]?.[year]}</p>
-              <p><strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[year]}</p>
-              <p><strong>{netCashLabel}</strong>: {bsTable[2]?.[year]}</p>
-              <p><strong>{netDebtLabel}</strong>: {bsTable[1]?.[year]}</p>
-              <p><strong>{peRatioLabel}</strong>: {valuationTable[3]?.[year]}</p>
-              <p><strong>{yieldLabel}</strong>: {valuationTable[4]?.[year]}</p>
+              <p><strong>{netSalesLabel}</strong>: {iseTableA[1]?.[i+6]}</p>
+              <p><strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[i+6]}</p>
+              <p><strong>{netCashLabel}</strong>: {bsTable[2]?.[i+6]}</p>
+              <p><strong>{netDebtLabel}</strong>: {bsTable[1]?.[i+6]}</p>
+              <p><strong>{peRatioLabel}</strong>: {valuationTable[3]?.[
+i+6]}</p>
+              <p><strong>{yieldLabel}</strong>: {valuationTable[4]?.[i+6]}</p>
             </div>
           ))}
         </div>
