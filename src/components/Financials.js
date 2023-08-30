@@ -88,6 +88,9 @@ i+6]}</p>
           ))}
         </div>
       </div>
+      <div className="mkt-cap">
+        <h3><strong>{mkCapLabel}: {valuationTable[1]?.[6]}</strong></h3>
+      </div>
     </div>
   );
 };

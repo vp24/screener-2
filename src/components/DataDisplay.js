@@ -12,6 +12,9 @@ import {
 import { styled } from "@mui/system";
 import "./DataDisplay.css";
 
+// const findTable = (id) =>
+//     data.find((item) => item.tableID === id)?.tableData || [];
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     padding: '10px', /* Adjust padding for mobile */
@@ -31,6 +34,16 @@ const DataDisplay = ({ data }) => {
     valuationTable: [7, 11, 13],
     iseTableA: [2, 3, 5, 11, 13],
   };
+
+  const findTable = (id) =>
+  data.find((item) => item.tableID === id)?.tableData || [];
+  const valuationTable = findTable("valuationTable");
+  let mkCapLabel = valuationTable[1]?.[0];
+  if (mkCapLabel === "Capitalization") {
+    mkCapLabel = "Mkt Cap";
+  }
+  
+
 
   const convertToSuperscript = (label) => {
     return label.replace(/(\S+)\s?(\d+)/g, (_, text, number) => {
