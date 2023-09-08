@@ -61,12 +61,16 @@ const Financials = ({ data, scrapedLink }) => {
   netCashLabel = capitalize(convertToSuperscript(netCashLabel));
 
   // Getting the years from the last 3 columns
-  const years = valuationTable[0].slice(-3);
+  // Find the index for 2023
+const index2023 = valuationTable[0].indexOf('2023');
 
-  return (
+// If 2023 is not in the table, we'll use the last index as a fallback
+const baseIndex = index2023 !== -1 ? index2023 : valuationTable[0].length - 1;
+
+return (
     <div>
       <div className="mkt-cap">
-        <h3><strong>{mkCapLabel}: {valuationTable[1]?.[6]}</strong></h3>
+        <h3><strong>{mkCapLabel}: {valuationTable[1]?.[baseIndex]}</strong></h3>
       </div>
       <div className="center">
         <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
@@ -74,25 +78,24 @@ const Financials = ({ data, scrapedLink }) => {
       <div className="financials">
         <h2>Financials</h2>
         <div className="financials-grid">
-          {years.map((year, i) => (
+          {[baseIndex, baseIndex+1, baseIndex+2].map((index, i) => (
             <div key={i}>
-              <h3>{year}</h3>
-              <p><strong>{netSalesLabel}</strong>: {iseTableA[1]?.[i+6]}</p>
-              <p><strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[i+6]}</p>
-              <p><strong>{netCashLabel}</strong>: {bsTable[2]?.[i+6]}</p>
-              <p><strong>{netDebtLabel}</strong>: {bsTable[1]?.[i+6]}</p>
-              <p><strong>{peRatioLabel}</strong>: {valuationTable[3]?.[
-i+6]}</p>
-              <p><strong>{yieldLabel}</strong>: {valuationTable[4]?.[i+6]}</p>
+              <h3>{valuationTable[0][index]}</h3>
+              <p><strong>{netSalesLabel}</strong>: {iseTableA[1]?.[index]}</p>
+              <p><strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[index]}</p>
+              <p><strong>{netCashLabel}</strong>: {bsTable[2]?.[index]}</p>
+              <p><strong>{netDebtLabel}</strong>: {bsTable[1]?.[index]}</p>
+              <p><strong>{peRatioLabel}</strong>: {valuationTable[3]?.[index]}</p>
+              <p><strong>{yieldLabel}</strong>: {valuationTable[4]?.[index]}</p>
             </div>
           ))}
         </div>
       </div>
       <div className="mkt-cap">
-        <h3><strong>{mkCapLabel}: {valuationTable[1]?.[6]}</strong></h3>
+        <h3><strong>{mkCapLabel}: {valuationTable[1]?.[baseIndex]}</strong></h3>
       </div>
     </div>
-  );
-};
+);
+}
 
 export default Financials;
