@@ -24,6 +24,7 @@ function SignUp() {
         navigate('/signin');  // Redirect to Sign In page
       }
     } catch (error) {
+      console.log(error); // Add this for debugging.
       const errorMessage = error.response?.data?.error || 'Sign up failed. Please try again.';
       setError(errorMessage);  // Set the error state with the specific error message
     }
