@@ -12,7 +12,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://tiny-jade-ostrich-tux.cyclic.app/signup', {
+      const response = await axios.post('https://tiny-jade-ostrich-tux.cyclic.cloud/signup', {
         username,
         password,
       });

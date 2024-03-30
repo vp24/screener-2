@@ -18,7 +18,7 @@ const SignIn = ({ onSignIn, isAuthenticated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://tiny-jade-ostrich-tux.cyclic.app/signin', {
+      const response = await axios.post('https://tiny-jade-ostrich-tux.cyclic.cloud/signin', {
         username,
         password,
       });
