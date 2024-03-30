@@ -46,4 +46,27 @@ const YahooDataComponent = ({ yahooData }) => {
 
       <Typography variant="h5" component="h3" gutterBottom mt={4}>
         Growth Estimates
-      <
+      </Typography>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell></TableCell>
+              <TableCell>% Estimates</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {growthEstimateRows.map((row, rowIndex) => (
+              <TableRow key={rowIndex}>
+                <TableCell>{row}</TableCell>
+                <TableCell>{growthEstimates[rowIndex]}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
+  );
+};
+
+export default YahooDataComponent;

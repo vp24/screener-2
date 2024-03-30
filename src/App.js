@@ -11,6 +11,7 @@ import StockName from './components/StockName';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import Loading from './components/Loading';
 
 const theme = createTheme({
   // Customize your theme here
