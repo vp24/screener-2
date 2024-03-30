@@ -60,17 +60,17 @@ const Financials = ({ data, scrapedLink }) => {
   netDebtLabel = capitalize(convertToSuperscript(netDebtLabel));
   netCashLabel = capitalize(convertToSuperscript(netCashLabel));
 
-  // Getting the years from the last 3 columns
-  // Find the index for 2023
-const index2023 = valuationTable[0].indexOf('2023');
+  // Get the indices of the last three columns/years
+  const lastThreeYears = [-3, -2, -1].map((offset) => valuationTable[0].length + offset);
 
-// If 2023 is not in the table, we'll use the last index as a fallback
-const baseIndex = index2023 !== -1 ? index2023 : valuationTable[0].length - 1;
-
-return (
+  return (
     <div>
       <div className="mkt-cap">
-        <h3><strong>{mkCapLabel}: {valuationTable[1]?.[baseIndex]}</strong></h3>
+        <h3>
+          <strong>
+            {mkCapLabel}: {valuationTable[1]?.[lastThreeYears[0]]}
+          </strong>
+        </h3>
       </div>
       <div className="center">
         <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
@@ -78,24 +78,40 @@ return (
       <div className="financials">
         <h2>Financials</h2>
         <div className="financials-grid">
-          {[baseIndex, baseIndex+1, baseIndex+2].map((index, i) => (
+          {lastThreeYears.map((index, i) => (
             <div key={i}>
               <h3>{valuationTable[0][index]}</h3>
-              <p><strong>{netSalesLabel}</strong>: {iseTableA[1]?.[index]}</p>
-              <p><strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[index]}</p>
-              <p><strong>{netCashLabel}</strong>: {bsTable[2]?.[index]}</p>
-              <p><strong>{netDebtLabel}</strong>: {bsTable[1]?.[index]}</p>
-              <p><strong>{peRatioLabel}</strong>: {valuationTable[3]?.[index]}</p>
-              <p><strong>{yieldLabel}</strong>: {valuationTable[4]?.[index]}</p>
+              <p>
+                <strong>{netSalesLabel}</strong>: {iseTableA[1]?.[index]}
+              </p>
+              <p>
+                <strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[index]}
+              </p>
+              <p>
+                <strong>{netCashLabel}</strong>: {bsTable[2]?.[index]}
+              </p>
+              <p>
+                <strong>{netDebtLabel}</strong>: {bsTable[1]?.[index]}
+              </p>
+              <p>
+                <strong>{peRatioLabel}</strong>: {valuationTable[3]?.[index]}
+              </p>
+              <p>
+                <strong>{yieldLabel}</strong>: {valuationTable[4]?.[index]}
+              </p>
             </div>
           ))}
         </div>
       </div>
       <div className="mkt-cap">
-        <h3><strong>{mkCapLabel}: {valuationTable[1]?.[baseIndex]}</strong></h3>
+        <h3>
+          <strong>
+            {mkCapLabel}: {valuationTable[1]?.[lastThreeYears[0]]}
+          </strong>
+        </h3>
       </div>
     </div>
-);
-}
+  );
+};
 
 export default Financials;
