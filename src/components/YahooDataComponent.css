@@ -1,29 +1,29 @@
-.table-scroll {
-    overflow-x: auto;
-    padding-left: 10px; /* Adjust the size as needed */
-  }
-  
-  .data-table {
-    width: auto;
-    min-width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    table-layout: fixed;
+  .table-scroll {
+      overflow-x: auto;
+      padding-left: 10px; /* Adjust the size as needed */
+    }
+    
+    .data-table {
+      width: auto;
+      min-width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      table-layout: fixed;
 
-  }
-  
-  .data-table th,
-  .data-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-  }
-  
-  .data-table th {
-    background-color: #f9f9f9;
-  }
-  
-  .label-bold {
-    font-weight: bold;
-  }
-  
+    }
+    
+    .data-table th,
+    .data-table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    
+    .data-table th {
+      background-color: #f9f9f9;
+    }
+    
+    .label-bold {
+      font-weight: bold;
+    }
+    

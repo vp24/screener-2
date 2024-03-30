@@ -13,7 +13,7 @@ const SearchForm = ({ onSearch }) => {
   return (
     <Box component="form" onSubmit={handleSearch} display="flex" alignItems="center" mb={4}>
       <TextField
-        label="Enter stock symbol"
+        label="Enter stock ticker"
         variant="outlined"
         value={stockQuery}
         onChange={(e) => setStockQuery(e.target.value)}

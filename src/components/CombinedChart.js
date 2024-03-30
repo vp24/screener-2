@@ -2,18 +2,15 @@ import React from 'react';
 import { Chart } from 'chart.js/auto'
 import { Bar, Line } from "react-chartjs-2";
 
-
-
-
 const CombinedChart = ({ data }) => {
   // Find iseTableA data
   const iseTableAData = data.find(({ tableID }) => tableID === 'iseTableA').tableData;
 
   // Extract the rows that you are interested in
   const labels = iseTableAData[0].slice(1);
-  const salesData = iseTableAData[1].slice(1).map(value => value.replace(/,/g, ''));
-  const netIncomeData = iseTableAData[6].slice(1).map(value => value.replace(/,/g, ''));
-  const netMarginData = iseTableAData[7].slice(1).map(value => value.replace(/[%,]/g, ''));
+  const salesData = iseTableAData[1].slice(1).map(value => parseFloat(value.replace(/,/g, '')));
+  const netIncomeData = iseTableAData[6].slice(1).map(value => parseFloat(value.replace(/,/g, '')));
+  const netMarginData = iseTableAData[7].slice(1).map(value => parseFloat(value.replace(/[%,]/g, '')));
 
   // Prepare data for the chart
   const chartData = {
@@ -42,48 +39,53 @@ const CombinedChart = ({ data }) => {
     ],
   };
 
- // Prepare options for the chart
- const chartOptions = {
-  responsive: true,
-  plugins: {
-    tooltip: {
-      mode: 'index',
-      intersect: false,
-      callbacks: {
-        label: function(tooltipItem) {
-          const dataset = tooltipItem.chart.data.datasets[tooltipItem.datasetIndex];
-          const currentValue = dataset.data[tooltipItem.parsed.x];
-          return dataset.label + ': ' + currentValue;
-        },
-        title: function(tooltipItem) {
-          return 'Year: ' + tooltipItem[0].chart.data.labels[tooltipItem[0].parsed.x];
+  // Prepare options for the chart
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function(tooltipItem) {
+            const dataset = tooltipItem.chart.data.datasets[tooltipItem.datasetIndex];
+            const currentValue = dataset.data[tooltipItem.parsed.x];
+            return dataset.label + ': ' + currentValue.toLocaleString();
+          },
+          title: function(tooltipItem) {
+            return 'Year: ' + tooltipItem[0].chart.data.labels[tooltipItem[0].parsed.x];
+          },
         },
       },
     },
-  },
-  scales: {
-    y1: {
-      type: 'linear',
-      display: true,
-      position: 'left',
-      beginAtZero: true,
-    },
-    y2: {
-      type: 'linear',
-      display: true,
-      position: 'right',
-      beginAtZero: true,
-      ticks: {
-        callback: function(value, index, values) {
-          return value + '%';
+    scales: {
+      y1: {
+        type: 'linear',
+        display: true,
+        position: 'left',
+        beginAtZero: true,
+        ticks: {
+          callback: function(value, index, values) {
+            return value.toLocaleString();
+          },
         },
       },
-      grid: {
-        drawOnChartArea: false,
+      y2: {
+        type: 'linear',
+        display: true,
+        position: 'right',
+        beginAtZero: true,
+        ticks: {
+          callback: function(value, index, values) {
+            return value + '%';
+          },
+        },
+        grid: {
+          drawOnChartArea: false,
+        },
       },
     },
-  },
-};
+  };
 
   return (
     <div>
