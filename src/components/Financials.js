@@ -1,7 +1,7 @@
 import React from "react";
-import "./Financials.css";
+import { Box, Typography, Grid } from "@mui/material";
 import StockName from "./StockName";
-import Pr10TextsDisplay from './Pr10TextsDisplay';
+import Pr10TextsDisplay from "./Pr10TextsDisplay";
 
 const Financials = ({ data, scrapedLink }) => {
   const findTable = (id) =>
@@ -64,53 +64,59 @@ const Financials = ({ data, scrapedLink }) => {
   const lastThreeYears = [-3, -2, -1].map((offset) => valuationTable[0].length + offset);
 
   return (
-    <div>
-      <div className="mkt-cap">
-        <h3>
+    <Box my={4}>
+      <Box textAlign="center" mb={2}>
+        <Typography variant="h5" component="div">
           <strong>
             {mkCapLabel}: {valuationTable[1]?.[lastThreeYears[0]]}
           </strong>
-        </h3>
-      </div>
-      <div className="center">
+        </Typography>
+      </Box>
+      <Box textAlign="center" mb={4}>
         <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
-      </div>
-      <div className="financials">
-        <h2>Financials</h2>
-        <div className="financials-grid">
+      </Box>
+      <Box mb={4}>
+        <Typography variant="h4" component="h2" gutterBottom>
+          Financials
+        </Typography>
+        <Grid container spacing={2}>
           {lastThreeYears.map((index, i) => (
-            <div key={i}>
-              <h3>{valuationTable[0][index]}</h3>
-              <p>
-                <strong>{netSalesLabel}</strong>: {iseTableA[1]?.[index]}
-              </p>
-              <p>
-                <strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[index]}
-              </p>
-              <p>
-                <strong>{netCashLabel}</strong>: {bsTable[2]?.[index]}
-              </p>
-              <p>
-                <strong>{netDebtLabel}</strong>: {bsTable[1]?.[index]}
-              </p>
-              <p>
-                <strong>{peRatioLabel}</strong>: {valuationTable[3]?.[index]}
-              </p>
-              <p>
-                <strong>{yieldLabel}</strong>: {valuationTable[4]?.[index]}
-              </p>
-            </div>
+            <Grid item xs={12} sm={4} key={i}>
+              <Box bgcolor="#f9f9f9" p={2} borderRadius={4}>
+                <Typography variant="h6" component="h3" gutterBottom>
+                  {valuationTable[0][index]}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>{netSalesLabel}</strong>: {iseTableA[1]?.[index]}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[index]}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>{netCashLabel}</strong>: {bsTable[2]?.[index]}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>{netDebtLabel}</strong>: {bsTable[1]?.[index]}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>{peRatioLabel}</strong>: {valuationTable[3]?.[index]}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>{yieldLabel}</strong>: {valuationTable[4]?.[index]}
+                </Typography>
+              </Box>
+            </Grid>
           ))}
-        </div>
-      </div>
-      <div className="mkt-cap">
-        <h3>
+        </Grid>
+      </Box>
+      <Box textAlign="center">
+        <Typography variant="h5" component="div">
           <strong>
             {mkCapLabel}: {valuationTable[1]?.[lastThreeYears[0]]}
           </strong>
-        </h3>
-      </div>
-    </div>
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 

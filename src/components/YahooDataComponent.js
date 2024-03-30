@@ -1,5 +1,5 @@
-import React from 'react';
-import './YahooDataComponent.css';
+import React from "react";
+import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 
 const YahooDataComponent = ({ yahooData }) => {
   const { epsTrend, growthEstimates } = yahooData;
@@ -11,54 +11,39 @@ const YahooDataComponent = ({ yahooData }) => {
   const growthEstimateRows = ["Current Qtr.", "Next Qtr.", "Current Year", "Next Year", "Next 5 Years (per annum)", "Past 5 Years (per annum)"];
 
   return (
-    <div>
-      <h2>Estimates and Revisions</h2>
+    <Box my={4}>
+      <Typography variant="h4" component="h2" gutterBottom>
+        Estimates and Revisions
+      </Typography>
 
-      <h3>EPS Trend</h3>
-      <div className="table-scroll">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th></th>
+      <Typography variant="h5" component="h3" gutterBottom>
+        EPS Trend
+      </Typography>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell></TableCell>
               {epsTrendColumns.map((column, index) => (
-                <th key={index}>{column}</th>
+                <TableCell key={index}>{column}</TableCell>
               ))}
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+          </TableHead>
+          <TableBody>
             {epsTrendRows.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                <td className="label-bold">{row}</td>
+              <TableRow key={rowIndex}>
+                <TableCell>{row}</TableCell>
                 {epsTrendColumns.map((column, columnIndex) => (
-                  <td key={columnIndex}>{epsTrendData[rowIndex * epsTrendColumns.length + columnIndex]}</td>
+                  <TableCell key={columnIndex}>
+                    {epsTrendData[rowIndex * epsTrendColumns.length + columnIndex]}
+                  </TableCell>
                 ))}
-              </tr>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-      <h3>Growth Estimates</h3>
-      <div className="table-scroll">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>% Estimates</th>
-            </tr>
-          </thead>
-          <tbody>
-            {growthEstimateRows.map((row, rowIndex) => (
-              <tr key={rowIndex}>
-                <td className="label-bold">{row}</td>
-                <td>{growthEstimates[rowIndex]}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
-
-export default YahooDataComponent;
+      <Typography variant="h5" component="h3" gutterBottom mt={4}>
+        Growth Estimates
+      <
