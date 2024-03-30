@@ -33,7 +33,7 @@ const App = () => {
       const response = query
         ? await axios.post("https://tiny-jade-ostrich-tux.cyclic.cloud/search/", { query })
         : await axios.get('https://tiny-jade-ostrich-tux.cyclic.cloud/api/scrape');
-      const scrapeResponse = await axios.get(`https://tiny-jade-ostrich-tux.cyclic.app/api/scrape?query=${response.data.result || ''}`);
+      const scrapeResponse = await axios.get(`https://tiny-jade-ostrich-tux.cyclic.cloud/api/scrape?query=${response.data.result || ''}`);
       setData(scrapeResponse.data);
       setScrapedLink(response.data.result);
 
