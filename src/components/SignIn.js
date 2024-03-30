@@ -23,6 +23,7 @@ const SignIn = ({ onSignIn, isAuthenticated }) => {
         password,
       });
       if (response.data && response.data.token) {
+        localStorage.setItem('token', response.data.token);
         onSignIn(username);
         navigate('/');
       }

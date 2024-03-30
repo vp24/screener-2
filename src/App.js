@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Box, Typography, Button, CircularProgress, Alert } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -8,7 +8,7 @@ import Financials from './components/Financials';
 import YahooDataComponent from './components/YahooDataComponent';
 import CombinedChart from './components/CombinedChart';
 import StockName from './components/StockName';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Loading from './components/Loading';
@@ -25,6 +25,14 @@ const App = () => {
   const [scrapedLink, setScrapedLink] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+      // You can also decode the token and extract the username if needed
+    }
+  }, []);
 
   const fetchData = async (query = '') => {
     try {
@@ -43,9 +51,15 @@ const App = () => {
       setLoading(false);
     } catch (error) {
       console.error(error);
-      setError('Error fetching data');
+      setError('Error fetching data. Please try again later.');
       setLoading(false);
     }
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    setUsername('');
   };
 
   return (
@@ -61,7 +75,7 @@ const App = () => {
               {isAuthenticated ? (
                 <>
                   <Typography variant="body1">Welcome, {username}!</Typography>
-                  <Button variant="contained" onClick={() => setIsAuthenticated(false)}>
+                  <Button variant="contained" onClick={handleSignOut}>
                     Sign Out
                   </Button>
                 </>
@@ -104,9 +118,7 @@ const App = () => {
                     </Typography>
                   </>
                 ) : (
-                  <Typography variant="body1" align="center">
-                    Please sign in to access the application.
-                  </Typography>
+                  <Navigate to="/signin" replace />
                 )
               } />
               <Route path="/signin" element={<SignIn onSignIn={(user) => {
