@@ -1,13 +1,13 @@
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react'; 
 import { useNavigate } from 'react-router-dom';
+import { Container, Typography, TextField, Button, Box } from '@mui/material';
 
-function SignIn({ onSignIn, isAuthenticated }) {
+const SignIn = ({ onSignIn, isAuthenticated }) => {
   const navigate = useNavigate();
-  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState(''); // State for error message
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -18,7 +18,7 @@ function SignIn({ onSignIn, isAuthenticated }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://tiny-jade-ostrich-tux.cyclic.cloud/signin', {
+      const response = await axios.post('https://tiny-jade-ostrich-tux.cyclic.app/signin', {
         username,
         password,
       });
@@ -27,22 +27,49 @@ function SignIn({ onSignIn, isAuthenticated }) {
         navigate('/');
       }
     } catch (error) {
-      setErrorMsg(error.response?.data?.errorMessage || "Error signing in. Please try again."); // Set the error message based on server response or a general message
+      setErrorMsg(error.response?.data?.errorMessage || "Error signing in. Please try again.");
       console.error("Error signing in", error.response?.data || error.message);
     }
   };
 
   return (
-    <div className="signin-container container">
-      <h2>Sign In</h2>
-      {errorMsg && <p className="error-message">{errorMsg}</p>} {/* Display error message */}
-      <form className="signin-form" onSubmit={handleSubmit}>
-        <input className="signin-input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" required />
-        <input className="signin-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required />
-        <button type="submit" className="signin-btn">Sign In</button>
-      </form>
-    </div>
+    <Container maxWidth="sm">
+      <Box my={4}>
+        <Typography variant="h4" component="h2" align="center" gutterBottom>
+          Sign In
+        </Typography>
+        {errorMsg && (
+          <Typography variant="body1" color="error" align="center" gutterBottom>
+            {errorMsg}
+          </Typography>
+        )}
+        <Box component="form" onSubmit={handleSubmit}>
+          <TextField
+            label="Username"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <TextField
+            label="Password"
+            variant="outlined"
+            type="password"
+            fullWidth
+            margin="normal"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Sign In
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
-}
+};
 
 export default SignIn;

@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './App.css';
+import { Container, Box, Typography, Button, CircularProgress, Alert } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import SearchForm from './components/SearchForm';
-import Loading from './components/Loading';
 import DataDisplay from './components/DataDisplay';
 import Financials from './components/Financials';
 import YahooDataComponent from './components/YahooDataComponent';
 import CombinedChart from './components/CombinedChart';
 import StockName from './components/StockName';
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-import { Box } from '@mui/material';
+
+const theme = createTheme({
+  // Customize your theme here
+});
 
 const App = () => {
   const [data, setData] = useState(null);
@@ -27,13 +30,13 @@ const App = () => {
       setLoading(true);
       setError(null);
       const response = query
-        ? await axios.post("https://tiny-jade-ostrich-tux.cyclic.cloud/search/", { query })
-        : await axios.get('https://tiny-jade-ostrich-tux.cyclic.cloud/api/scrape');
-      const scrapeResponse = await axios.get(`https://tiny-jade-ostrich-tux.cyclic.cloud/api/scrape?query=${response.data.result || ''}`);
+        ? await axios.post("https://tiny-jade-ostrich-tux.cyclic.app/search/", { query })
+        : await axios.get('https://tiny-jade-ostrich-tux.cyclic.app/api/scrape');
+      const scrapeResponse = await axios.get(`https://tiny-jade-ostrich-tux.cyclic.app/api/scrape?query=${response.data.result || ''}`);
       setData(scrapeResponse.data);
       setScrapedLink(response.data.result);
 
-      const yahooResponse = await axios.get(`https://tiny-jade-ostrich-tux.cyclic.cloud/api/yahoo?query=${query}`);
+      const yahooResponse = await axios.get(`https://tiny-jade-ostrich-tux.cyclic.app/api/yahoo?query=${query}`);
       setYahooData(yahooResponse.data);
 
       setLoading(false);
@@ -45,63 +48,77 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <Box className="container">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-          <h1>InfoWolf</h1>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Container maxWidth="lg">
+          <Box my={4}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+              <Typography variant="h4" component="h1">
+                InfoWolf
+              </Typography>
 
-          {isAuthenticated ? (
-            <>
-              <span>Welcome, {username}!</span>
-              <button onClick={() => setIsAuthenticated(false)}>Sign Out</button>
-            </>
-          ) : (
-            <div>
-              <Link to="/signin" style={{ marginRight: '10px' }}>Sign In</Link>
-              <Link to="/signup">Sign Up</Link>
-            </div>
-          )}
-        </div>
+              {isAuthenticated ? (
+                <>
+                  <Typography variant="body1">Welcome, {username}!</Typography>
+                  <Button variant="contained" onClick={() => setIsAuthenticated(false)}>
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Box>
+                  <Button component={Link} to="/signin" variant="outlined" style={{ marginRight: '10px' }}>
+                    Sign In
+                  </Button>
+                  <Button component={Link} to="/signup" variant="contained">
+                    Sign Up
+                  </Button>
+                </Box>
+              )}
+            </Box>
 
-        <Routes>
-          <Route path="/" element={
-            isAuthenticated ? (
-              <>
-                <SearchForm onSearch={fetchData} />
-                {loading ? (
-                  <Loading />
-                ) : error ? (
-                  <p className="error">{error}</p>
-                ) : (
+            <Routes>
+              <Route path="/" element={
+                isAuthenticated ? (
                   <>
-                    {scrapedLink && (
-                      <Box className="stock-name-container">
-                        <StockName url={scrapedLink} />
-                      </Box>
+                    <SearchForm onSearch={fetchData} />
+                    {loading ? (
+                      <Loading />
+                    ) : error ? (
+                      <Alert severity="error">{error}</Alert>
+                    ) : (
+                      <>
+                        {scrapedLink && (
+                          <Box textAlign="center" mb={4}>
+                            <StockName url={scrapedLink} />
+                          </Box>
+                        )}
+                        {data && <Financials data={data} scrapedLink={scrapedLink} />}
+                        {data && <DataDisplay data={data} />}
+                        {data && <CombinedChart data={data} />}
+                        {yahooData && <YahooDataComponent yahooData={yahooData} />}
+                      </>
                     )}
-                    {data && <Financials data={data} scrapedLink={scrapedLink} />}
-                    {data && <DataDisplay data={data} />}
-                    {data && <CombinedChart data={data} />}
-                    {yahooData && <YahooDataComponent yahooData={yahooData} />}
+                    <Typography variant="body2" align="center">
+                      This site is for educational use only. Commercial use is not allowed.
+                    </Typography>
                   </>
-                )}
-                <p className="small-text">
-                  This site is for educational use only. Commercial use is not allowed.
-                </p>
-              </>
-            ) : (
-              <Navigate to="/signin" replace />
-            )
-          } />
-          <Route path="/signin" element={<SignIn onSignIn={(user) => {
-            setIsAuthenticated(true);
-            setUsername(user);
-          }} isAuthenticated={isAuthenticated} />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-      </Box>
-    </Router>
+                ) : (
+                  <Typography variant="body1" align="center">
+                    Please sign in to access the application.
+                  </Typography>
+                )
+              } />
+              <Route path="/signin" element={<SignIn onSignIn={(user) => {
+                setIsAuthenticated(true);
+                setUsername(user);
+              }} isAuthenticated={isAuthenticated} />} />
+              <Route path="/signup" element={<SignUp />} />
+            </Routes>
+          </Box>
+        </Container>
+      </Router>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
