@@ -3,6 +3,10 @@ import { Box, Typography, Grid } from "@mui/material";
 import StockName from "./StockName";
 import Pr10TextsDisplay from "./Pr10TextsDisplay";
 
+const formatNumber = (value) => {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
 const Financials = ({ data, scrapedLink }) => {
   const findTable = (id) =>
     data.find((item) => item.tableID === id)?.tableData || [];
@@ -65,10 +69,10 @@ const Financials = ({ data, scrapedLink }) => {
 
   return (
     <Box my={4}>
-      <Box textAlign="center" mb={2}>
+      <Box textAlign="center" mb={4}>
         <Typography variant="h5" component="div">
           <strong>
-            {mkCapLabel}: {valuationTable[1]?.[lastThreeYears[0]]}
+            {mkCapLabel}: {formatNumber(valuationTable[1]?.[lastThreeYears[0]])}
           </strong>
         </Typography>
       </Box>
@@ -87,16 +91,16 @@ const Financials = ({ data, scrapedLink }) => {
                   {valuationTable[0][index]}
                 </Typography>
                 <Typography variant="body1">
-                  <strong>{netSalesLabel}</strong>: {iseTableA[1]?.[index]}
+                  <strong>{netSalesLabel}</strong>: {formatNumber(iseTableA[1]?.[index])}
                 </Typography>
                 <Typography variant="body1">
-                  <strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[index]}
+                  <strong>{netIncomeLabel}</strong>: {formatNumber(iseTableA[6]?.[index])}
                 </Typography>
                 <Typography variant="body1">
-                  <strong>{netCashLabel}</strong>: {bsTable[2]?.[index]}
+                  <strong>{netCashLabel}</strong>: {formatNumber(bsTable[2]?.[index])}
                 </Typography>
                 <Typography variant="body1">
-                  <strong>{netDebtLabel}</strong>: {bsTable[1]?.[index]}
+                  <strong>{netDebtLabel}</strong>: {formatNumber(bsTable[1]?.[index])}
                 </Typography>
                 <Typography variant="body1">
                   <strong>{peRatioLabel}</strong>: {valuationTable[3]?.[index]}
@@ -112,7 +116,7 @@ const Financials = ({ data, scrapedLink }) => {
       <Box textAlign="center">
         <Typography variant="h5" component="div">
           <strong>
-            {mkCapLabel}: {valuationTable[1]?.[lastThreeYears[0]]}
+            {mkCapLabel}: {formatNumber(valuationTable[1]?.[lastThreeYears[0]])}
           </strong>
         </Typography>
       </Box>
