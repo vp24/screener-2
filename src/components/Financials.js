@@ -4,7 +4,7 @@ import StockName from "./StockName";
 import Pr10TextsDisplay from "./Pr10TextsDisplay";
 
 const formatNumber = (value) => {
-  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return Number(value.replace(/,/g, '')).toLocaleString('en-US');
 };
 
 const Financials = ({ data, scrapedLink }) => {
