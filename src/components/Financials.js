@@ -4,11 +4,8 @@ import StockName from "./StockName";
 import Pr10TextsDisplay from "./Pr10TextsDisplay";
 
 const formatNumber = (value) => {
-  if (typeof value === 'string') {
-    const number = Number(value.replace(/,/g, ''));
-    if (!isNaN(number)) {
-      return number.toLocaleString('en-US');
-    }
+  if (typeof value === 'number') {
+    return value.toLocaleString('en-US');
   }
   return value;
 };
