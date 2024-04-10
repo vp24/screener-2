@@ -4,7 +4,13 @@ import StockName from "./StockName";
 import Pr10TextsDisplay from "./Pr10TextsDisplay";
 
 const formatNumber = (value) => {
-  return Number(value.replace(/,/g, '')).toLocaleString('en-US');
+  if (typeof value === 'string') {
+    const number = Number(value.replace(/,/g, ''));
+    if (!isNaN(number)) {
+      return number.toLocaleString('en-US');
+    }
+  }
+  return value;
 };
 
 const Financials = ({ data, scrapedLink }) => {
