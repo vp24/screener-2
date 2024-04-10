@@ -2,13 +2,9 @@ import React from "react";
 import { Box, Typography, Grid } from "@mui/material";
 import StockName from "./StockName";
 import Pr10TextsDisplay from "./Pr10TextsDisplay";
-import "./financials.css";
 
 const formatNumber = (value) => {
-  if (typeof value === 'number') {
-    return value.toLocaleString('en-US');
-  }
-  return value;
+  return Number(value.replace(/,/g, '')).toLocaleString('en-US');
 };
 
 const Financials = ({ data, scrapedLink }) => {
@@ -19,6 +15,7 @@ const Financials = ({ data, scrapedLink }) => {
   const iseTableA = findTable("iseTableA");
   const bsTable = findTable("bsTable");
 
+  // This function gets the year from the table's header
   const getYearFromTable = (table, index) => table[0]?.[index];
 
   let mkCapLabel = valuationTable[1]?.[0];
@@ -32,6 +29,7 @@ const Financials = ({ data, scrapedLink }) => {
   let netDebtLabel = bsTable[1]?.[0];
   let netCashLabel = bsTable[2]?.[0];
 
+  // Convert numbers in labels to superscript
   const convertToSuperscript = (label) => {
     return label.replace(/([a-zA-Z]+)\s?(\d+)/g, (_, text, number) => {
       const superscriptMap = {
@@ -57,6 +55,7 @@ const Financials = ({ data, scrapedLink }) => {
       .join(' ');
   };
 
+  // applying capitalize and convertToSuperscript to labels
   mkCapLabel = capitalize(convertToSuperscript(mkCapLabel));
   peRatioLabel = capitalize(convertToSuperscript(peRatioLabel));
   yieldLabel = capitalize(convertToSuperscript(yieldLabel));
@@ -65,10 +64,11 @@ const Financials = ({ data, scrapedLink }) => {
   netDebtLabel = capitalize(convertToSuperscript(netDebtLabel));
   netCashLabel = capitalize(convertToSuperscript(netCashLabel));
 
+  // Get the indices of the last three columns/years
   const lastThreeYears = [-3, -2, -1].map((offset) => valuationTable[0].length + offset);
 
   return (
-    <Box className="financials">
+    <Box my={4}>
       <Box textAlign="center" mb={4}>
         <Typography variant="h5" component="div">
           <strong>
@@ -83,9 +83,9 @@ const Financials = ({ data, scrapedLink }) => {
         <Typography variant="h4" component="h2" gutterBottom>
           Financials
         </Typography>
-        <Grid container spacing={2} className="financials-grid">
+        <Grid container spacing={2}>
           {lastThreeYears.map((index, i) => (
-            <Grid item key={i}>
+            <Grid item xs={12} sm={4} key={i}>
               <Box bgcolor="#f9f9f9" p={2} borderRadius={4}>
                 <Typography variant="h6" component="h3" gutterBottom>
                   {valuationTable[0][index]}
