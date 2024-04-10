@@ -6,28 +6,23 @@ import {
   TableContainer,
   TableRow,
   Typography,
-  Box,
   Paper,
+  Box,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import "./DataDisplay.css";
-
-// const findTable = (id) =>
-//     data.find((item) => item.tableID === id)?.tableData || [];
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    padding: '10px', /* Adjust padding for mobile */
-    textAlign: 'center', /* Center the text for mobile */
+  [theme.breakpoints.down("sm")]: {
+    padding: "10px",
+    textAlign: "center",
   },
-  padding: '20px', /* Adjust padding for larger screens */
-  textAlign: 'center', /* Center the text for larger screens */
-  borderRight: '1px solid rgba(224, 224, 224, 1)',
-  '&:last-child': {
-    borderRight: 'none',
+  padding: "20px",
+  textAlign: "center",
+  borderRight: "1px solid rgba(224, 224, 224, 1)",
+  "&:last-child": {
+    borderRight: "none",
   },
 }));
-
 
 const DataDisplay = ({ data }) => {
   const excludedRows = {
@@ -36,14 +31,12 @@ const DataDisplay = ({ data }) => {
   };
 
   const findTable = (id) =>
-  data.find((item) => item.tableID === id)?.tableData || [];
+    data.find((item) => item.tableID === id)?.tableData || [];
   const valuationTable = findTable("valuationTable");
   let mkCapLabel = valuationTable[1]?.[0];
   if (mkCapLabel === "Capitalization") {
     mkCapLabel = "Mkt Cap";
   }
-  
-
 
   const convertToSuperscript = (label) => {
     return label.replace(/(\S+)\s?(\d+)/g, (_, text, number) => {
@@ -71,7 +64,7 @@ const DataDisplay = ({ data }) => {
   };
 
   return (
-    <div className="data-table-container">
+    <Box my={4}>
       {data.map(({ tableID, tableData }) => {
         if (excludedRows[tableID]) {
           tableData = tableData.filter(
@@ -93,13 +86,12 @@ const DataDisplay = ({ data }) => {
         return (
           <TableContainer component={Paper} key={tableID}>
             <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: 2,
-              }}>
-              <Typography variant="subtitle1" gutterBottom component="div">
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              py={2}
+            >
+              <Typography variant="h6" component="div">
                 {tableTitle}
               </Typography>
             </Box>
@@ -115,9 +107,9 @@ const DataDisplay = ({ data }) => {
                         <StyledTableCell
                           key={cellIndex}
                           className={
-                            "custom-table-cell " +
-                            (cellIndex === 0 ? "bold small-font" : "small-font")
-                          }>
+                            cellIndex === 0 ? "bold small-font" : "small-font"
+                          }
+                        >
                           {cellIndex === 0
                             ? capitalize(convertToSuperscript(displayCell))
                             : displayCell}
@@ -131,7 +123,7 @@ const DataDisplay = ({ data }) => {
           </TableContainer>
         );
       })}
-    </div>
+    </Box>
   );
 };
 
