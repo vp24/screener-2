@@ -39,7 +39,7 @@ const DataDisplay = ({ data }) => {
   }
 
   const convertToSuperscript = (label) => {
-    return label.replace(/([A-Z]+)\s?(\d+)/g, (_, text, number) => {
+    return label.replace(/(\S+)\s?(\d+)/g, (_, text, number) => {
       const superscriptMap = {
         0: "⁰",
         1: "¹",

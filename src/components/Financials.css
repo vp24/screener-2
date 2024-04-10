@@ -14,7 +14,7 @@
   background: #f9f9f9;
   padding: 20px;
   border-radius: 10px;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   text-align: center; /* To center the content in the div */
 }
 
@@ -31,16 +31,12 @@
 /* Responsive Styles */
 @media (max-width: 600px) {
   .financials-grid {
-    display: flex; /* Switch to flexbox for mobile */
-    flex-direction: row; /* Arrange items in a row */
-    overflow-x: auto; /* Enable horizontal scrolling if needed */
-    scroll-snap-type: x mandatory; /* Snap to each item on scroll */
+    grid-template-columns: 1fr 1fr 1fr; /* Three equal columns on mobile */
+    gap: 10px;
   }
 
   .financials-grid div {
     padding: 10px;  /* Reduce padding */
     font-size: 0.8em; /* Reduce font size */
-    flex: 0 0 80%; /* Set a fixed width for each item */
-    scroll-snap-align: start; /* Snap each item to the start */
   }
 }
