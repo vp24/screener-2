@@ -6,7 +6,7 @@
 
 .financials-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 }
 
@@ -31,12 +31,12 @@
 /* Responsive Styles */
 @media (max-width: 600px) {
   .financials-grid {
-    grid-template-columns: 1fr 1fr 1fr; /* Three equal columns on mobile */
-    gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px; /* Reduce gap between columns */
   }
 
   .financials-grid div {
-    padding: 10px;  /* Reduce padding */
-    font-size: 0.8em; /* Reduce font size */
+    padding: 10px; /* Reduce padding for mobile */
+    font-size: 0.8em; /* Decrease font size for mobile */
   }
 }
