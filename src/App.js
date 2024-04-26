@@ -39,13 +39,13 @@ const App = () => {
       setLoading(true);
       setError(null);
       const response = query
-        ? await axios.post("https://tiny-jade-ostrich-tux.cyclic.cloud/search/", { query })
-        : await axios.get('https://tiny-jade-ostrich-tux.cyclic.cloud/api/scrape');
-      const scrapeResponse = await axios.get(`https://tiny-jade-ostrich-tux.cyclic.cloud/api/scrape?query=${response.data.result || ''}`);
+        ? await axios.post("https://screener-api.onrender.com/search/", { query })
+        : await axios.get('https://screener-api.onrender.com/scrape');
+      const scrapeResponse = await axios.get(`https://screener-api.onrender.com/api/scrape?query=${response.data.result || ''}`);
       setData(scrapeResponse.data);
       setScrapedLink(response.data.result);
 
-      const yahooResponse = await axios.get(`https://tiny-jade-ostrich-tux.cyclic.cloud/api/yahoo?query=${query}`);
+      const yahooResponse = await axios.get(`https://screener-api.onrender.com/api/yahoo?query=${query}`);
       setYahooData(yahooResponse.data);
 
       setLoading(false);
