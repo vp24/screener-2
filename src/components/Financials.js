@@ -1,19 +1,15 @@
 import React from "react";
-import { Box, Typography, Grid } from "@mui/material";
+import "./Financials.css";
 import StockName from "./StockName";
-import Pr10TextsDisplay from "./Pr10TextsDisplay";
-
+import Pr10TextsDisplay from './Pr10TextsDisplay';
 const Financials = ({ data, scrapedLink }) => {
   const findTable = (id) =>
     data.find((item) => item.tableID === id)?.tableData || [];
-
   const valuationTable = findTable("valuationTable");
   const iseTableA = findTable("iseTableA");
   const bsTable = findTable("bsTable");
-
   // This function gets the year from the table's header
   const getYearFromTable = (table, index) => table[0]?.[index];
-
   let mkCapLabel = valuationTable[1]?.[0];
   if (mkCapLabel === "Capitalization") {
     mkCapLabel = "Mkt Cap";
@@ -24,7 +20,6 @@ const Financials = ({ data, scrapedLink }) => {
   let netIncomeLabel = iseTableA[6]?.[0];
   let netDebtLabel = bsTable[1]?.[0];
   let netCashLabel = bsTable[2]?.[0];
-
   // Convert numbers in labels to superscript
   const convertToSuperscript = (label) => {
     return label.replace(/([a-zA-Z]+)\s?(\d+)/g, (_, text, number) => {
@@ -43,81 +38,73 @@ const Financials = ({ data, scrapedLink }) => {
       return text + (superscriptMap[number] || "");
     });
   };
-
   const capitalize = (label) => {
     return label
       .split(' ')
       .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
       .join(' ');
   };
-
   // applying capitalize and convertToSuperscript to labels
   mkCapLabel = capitalize(convertToSuperscript(mkCapLabel));
   peRatioLabel = capitalize(convertToSuperscript(peRatioLabel));
   yieldLabel = capitalize(convertToSuperscript(yieldLabel));
   netSalesLabel = capitalize(convertToSuperscript(netSalesLabel));
   netIncomeLabel = capitalize(convertToSuperscript(netIncomeLabel));
-  netDebtLabel = capitalize(convertToSuperscript(netDebtLabel));
-  netCashLabel = capitalize(convertToSuperscript(netCashLabel));
+   netDebtLabel = capitalize(convertToSuperscript(netDebtLabel));
+   netCashLabel = capitalize(convertToSuperscript(netCashLabel));
 
-  // Get the indices of the last three columns/years
-  const lastThreeYears = [-3, -2, -1].map((offset) => valuationTable[0].length + offset);
+   // Get the indices of the last three columns/years
+   const lastThreeYears = [-3, -2, -1].map((offset) => valuationTable[0].length + offset);
 
-  return (
-    <Box my={4}>
-      <Box textAlign="center" mb={2}>
-        <Typography variant="h5" component="div">
-          <strong>
-            {mkCapLabel}: {valuationTable[1]?.[lastThreeYears[0]]}
-          </strong>
-        </Typography>
-      </Box>
-      <Box textAlign="center" mb={4}>
-        <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
-      </Box>
-      <Box mb={4}>
-        <Typography variant="h4" component="h2" gutterBottom>
-          Financials
-        </Typography>
-        <Grid container spacing={2}>
-          {lastThreeYears.map((index, i) => (
-            <Grid item xs={12} sm={4} key={i}>
-              <Box bgcolor="#f9f9f9" p={2} borderRadius={4}>
-                <Typography variant="h6" component="h3" gutterBottom>
-                  {valuationTable[0][index]}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>{netSalesLabel}</strong>: {iseTableA[1]?.[index]}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[index]}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>{netCashLabel}</strong>: {bsTable[2]?.[index]}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>{netDebtLabel}</strong>: {bsTable[1]?.[index]}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>{peRatioLabel}</strong>: {valuationTable[3]?.[index]}
-                </Typography>
-                <Typography variant="body1">
-                  <strong>{yieldLabel}</strong>: {valuationTable[4]?.[index]}
-                </Typography>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-      <Box textAlign="center">
-        <Typography variant="h5" component="div">
-          <strong>
-            {mkCapLabel}: {valuationTable[1]?.[lastThreeYears[0]]}
-          </strong>
-        </Typography>
-      </Box>
-    </Box>
-  );
-};
+   return (
+     <div>
+       <div className="mkt-cap">
+         <h3>
+           <strong>
+             {mkCapLabel}: {valuationTable[1]?.[lastThreeYears[0]]}
+           </strong>
+         </h3>
+       </div>
+       <div className="center">
+         <Pr10TextsDisplay pr10Texts={data.map(({ pr10Text }) => pr10Text)} />
+       </div>
+       <div className="financials">
+         <h2>Financials</h2>
+         <div className="financials-grid">
+           {lastThreeYears.map((index, i) => (
+             <div key={i}>
+               <h3>{valuationTable[0][index]}</h3>
+               <p>
+                 <strong>{netSalesLabel}</strong>: {iseTableA[1]?.[index]}
+               </p>
+               <p>
+                 <strong>{netIncomeLabel}</strong>: {iseTableA[6]?.[index]}
+               </p>
+               <p>
+                 <strong>{netCashLabel}</strong>: {bsTable[2]?.[index]}
+               </p>
+               <p>
+                 <strong>{netDebtLabel}</strong>: {bsTable[1]?.[index]}
+               </p>
+               <p>
+                 <strong>{peRatioLabel}</strong>: {valuationTable[3]?.[index]}
+               </p>
+               <p>
+                 <strong>{yieldLabel}</strong>: {valuationTable[4]?.[index]}
+               </p>
+             </div>
+           ))}
+         </div>
+       </div>
+       <div className="mkt-cap">
+         <h3>
+           <strong>
+             {mkCapLabel}: {valuationTable[1]?.[lastThreeYears[0]]}
+           </strong>
+         </h3>
+       </div>
+     </div>
+   );
+ };
 
-export default Financials;
+ export default Financials;
