@@ -12,6 +12,8 @@ import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-ro
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Loading from './components/Loading';
+import FinancialCharts from './FinancialCharts'; // Import the new component
+
 
 const theme = createTheme({
   // Customize your theme here
@@ -63,75 +65,81 @@ const App = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Container maxWidth="lg">
-          <Box my={4}>
-            <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-              <Typography variant="h4" component="h1">
-                InfoWolf
-              </Typography>
+    <div>
+      https://infowolf.onrender.com/
+    </div>
+  )
 
-              {isAuthenticated ? (
-                <>
-                  <Typography variant="body1">Welcome, {username}!</Typography>
-                  <Button variant="contained" onClick={handleSignOut}>
-                    Sign Out
-                  </Button>
-                </>
-              ) : (
-                <Box>
-                  <Button component={Link} to="/signin" variant="outlined" style={{ marginRight: '10px' }}>
-                    Sign In
-                  </Button>
-                  <Button component={Link} to="/signup" variant="contained">
-                    Sign Up
-                  </Button>
-                </Box>
-              )}
-            </Box>
+  // return (
+  //   <ThemeProvider theme={theme}>
+  //     <Router>
+  //       <Container maxWidth="lg">
+  //         <Box my={4}>
+  //           <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
+  //             <Typography variant="h4" component="h1">
+  //               InfoWolf
+  //             </Typography>
 
-            <Routes>
-              <Route path="/" element={
-                isAuthenticated ? (
-                  <>
-                    <SearchForm onSearch={fetchData} />
-                    {loading ? (
-                      <Loading />
-                    ) : error ? (
-                      <Alert severity="error">{error}</Alert>
-                    ) : (
-                      <>
-                        {scrapedLink && (
-                          <Box textAlign="center" mb={4}>
-                            <StockName url={scrapedLink} />
-                          </Box>
-                        )}
-                        {data && <Financials data={data} scrapedLink={scrapedLink} />}
-                        {data && <DataDisplay data={data} />}
-                        {data && <CombinedChart data={data} />}
-                        {yahooData && <YahooDataComponent yahooData={yahooData} />}
-                      </>
-                    )}
-                    <Typography variant="body2" align="center">
-                      This site is for educational use only. Commercial use is not allowed.
-                    </Typography>
-                  </>
-                ) : (
-                  <Navigate to="/signin" replace />
-                )
-              } />
-              <Route path="/signin" element={<SignIn onSignIn={(user) => {
-                setIsAuthenticated(true);
-                setUsername(user);
-              }} isAuthenticated={isAuthenticated} />} />
-              <Route path="/signup" element={<SignUp />} />
-            </Routes>
-          </Box>
-        </Container>
-      </Router>
-    </ThemeProvider>
-  );
+  //             {isAuthenticated ? (
+  //               <>
+  //                 <Typography variant="body1">Welcome, {username}!</Typography>
+  //                 <Button variant="contained" onClick={handleSignOut}>
+  //                   Sign Out
+  //                 </Button>
+  //               </>
+  //             ) : (
+  //               <Box>
+  //                 <Button component={Link} to="/signin" variant="outlined" style={{ marginRight: '10px' }}>
+  //                   Sign In
+  //                 </Button>
+  //                 <Button component={Link} to="/signup" variant="contained">
+  //                   Sign Up
+  //                 </Button>
+  //               </Box>
+  //             )}
+  //           </Box>
+
+  //           <Routes>
+  //             <Route path="/" element={
+  //               isAuthenticated ? (
+  //                 <>
+  //                   <SearchForm onSearch={fetchData} />
+  //                   {loading ? (
+  //                     <Loading />
+  //                   ) : error ? (
+  //                     <Alert severity="error">{error}</Alert>
+  //                   ) : (
+  //                     <>
+  //                       {scrapedLink && (
+  //                         <Box textAlign="center" mb={4}>
+  //                           <StockName url={scrapedLink} />
+  //                         </Box>
+  //                       )}
+  //                       {data && <Financials data={data} scrapedLink={scrapedLink} />}
+  //                       {data && <DataDisplay data={data} />}
+  //                       {data && <CombinedChart data={data} />}
+  //                       {yahooData && <YahooDataComponent yahooData={yahooData} />}
+  //                     </>
+  //                   )}
+  //                   <Typography variant="body2" align="center">
+  //                     This site is for educational use only. Commercial use is not allowed.
+  //                   </Typography>
+  //                 </>
+  //               ) : (
+  //                 <Navigate to="/signin" replace />
+  //               )
+  //             } />
+  //             <Route path="/signin" element={<SignIn onSignIn={(user) => {
+  //               setIsAuthenticated(true);
+  //               setUsername(user);
+  //             }} isAuthenticated={isAuthenticated} />} />
+  //             <Route path="/signup" element={<SignUp />} />
+  //           </Routes>
+  //         </Box>
+  //       </Container>
+  //     </Router>
+  //   </ThemeProvider>
+  // );
 };
 
 export default App;

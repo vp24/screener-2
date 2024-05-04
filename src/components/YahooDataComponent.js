@@ -64,7 +64,7 @@ const YahooDataComponent = ({ yahooData }) => {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+  </TableContainer>
     </Box>
   );
 };
